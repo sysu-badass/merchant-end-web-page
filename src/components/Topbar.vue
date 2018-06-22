@@ -13,6 +13,7 @@
 
 <script>
   export default {
+    name:'topbar',
     data() {
       return {
         activeIndex: '1',

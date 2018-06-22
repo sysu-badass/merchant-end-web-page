@@ -11,20 +11,23 @@ export default new Router({
   routes: [
     {
       path: '/',
+      name: '/',
       redirect:'/index'
     },
     {
       path: '/index',
+      name: "/index",
       component: IndexPage
     },
     {
       path: '/login',
+      name: '/login',
       component: Login
     },
     {
       path:'/Register',
+      name: 'register',
       component: Register
     }
-
   ]
 })

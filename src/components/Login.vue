@@ -1,13 +1,10 @@
 <template>
     <div class="login-wrap">
-        <div class="topbar">
-            <topbar></topbar>
-        </div>
         <div class="ms-title">Eorder.</div>
         <div class="ms-login">
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="0px" class="demo-ruleForm">
-                <el-form-item prop="name">
-                    <el-input v-model="ruleForm.name" placeholder="账号" ></el-input>
+                <el-form-item prop="username">
+                    <el-input v-model="ruleForm.username" placeholder="账号" ></el-input>
                 </el-form-item>
                 <!-- <div class="name-error" v-if="name-error">
                     <span>{{name-errinfo}}</span>
@@ -32,17 +29,18 @@
 <script>
     import Vue from 'vue'
     import axios from 'axios'
+    import topbar from '@/components/Topbar'
+
     export default {
         name: 'login',
         data() {
             return {
                 ruleForm: {
                     username: '',
-                    password: '',
-                    validate: ''                    
+                    password: '',                 
                 },
                 rules: {
-                    name: [
+                    username: [
                         { required: true, message: '请输入用户名', trigger: 'blur' }
                     ],
                     password: [
@@ -53,15 +51,21 @@
         },
         methods: {
             login(formName) {
-                alert("you clicked login")
-                axios.get('http://127.0.0.1:5000/login?name=arron111')
-                    .then(function (response) {
-                      alert("1"+response);
-                    })
-                    .catch(function (error) {
-                      alert("2"+error);
-                    });
-                alert("now done")
+                var bodyFormData = new FormData();
+                bodyFormData.set('username',this.$data.ruleForm['username']);
+                bodyFormData.set('password', this.$data.ruleForm['password']);            
+                axios({
+                    method: 'post',
+                    url: '/api/login',
+                    data: bodyFormData,
+                    config: { headers: {'Content-Type': 'multipart/form-data' }}                   
+                })
+                .then(function (response) {
+                  console.log(response);
+                })
+                .catch(function (error) {
+                  console.log(error);
+                });
             },
             register() {
                 this.$router.push('/register');

@@ -4,26 +4,29 @@ import Login from '@/components/Login'
 import Register from '@/components/Register'
 import Dashboard from '@/components/Dashboard' 
 import Temp from '@/components/Temp' 
+import Orderlist from '@/components/Orderlist'
+import Info from '@/components/Info'
+import Dishes from '@/components/Dishes'
+import QRCode from '@/components/QRCode'
+import Explain from '@/components/Explain'
+
+
 
 Vue.use(Router)
 
-const routes = [
-  {
+const routes = [{
     path: '/',
     name: '/',
     redirect:'/dashboard'
-  },
-  {
+  },{
     path: '/login',
     name: '/login',
     component: Login
-  },
-  {
+  },{
     path:'/Register',
     name: 'register',
     component: Register
-  },
-  {
+  },{
     path:'/dashboard',
     name:'',
     meta:{
@@ -32,56 +35,49 @@ const routes = [
     component:Dashboard,
     children:[{
         path:'',
-        component: Temp,
+        component: Info,
         meta:{
           requiresAuth: true
         }
-      },
-      {
+      },{
         path:'/neworder',
-        component: Temp,
+        component: Orderlist,
         meta:{
           requiresAuth: true
         }
-      },
-      {
+      },{
         path:'/preparingorder',
-        component: Temp,
+        component: Orderlist,
         meta:{
           requiresAuth: true
         }
-      },
-      {
+      },{
         path:'/finishedorder',
-        component: Temp,
+        component: Orderlist,
         meta:{
           requiresAuth: true
         }
-      },
-      {
+      },{
         path:'/rejectedorder',
-        component: Temp,
+        component: Orderlist,
         meta:{
           requiresAuth: true
         }
-      },
-      {
+      },{
         path:'/dishes',
-        component: Temp,
+        component: Dishes,
         meta:{
           requiresAuth: true
         }
-      },
-      {
+      },{
         path:'/qrcode',
-        component: Temp,
+        component: QRCode,
         meta:{
           requiresAuth: true
         }     
-      },
-      {
+      },{
         path:'/explain',
-        component: Temp,
+        component: Explain,
         meta:{
           requiresAuth: true
         }

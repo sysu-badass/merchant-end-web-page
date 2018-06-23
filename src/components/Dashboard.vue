@@ -19,26 +19,27 @@
                         <i class="el-icon-menu"></i>
                         <span slot="title">生成桌码</span>
 					</el-menu-item>
-					<el-menu-item index="exit" @click="logout">
-                        <i class="el-icon-setting"></i>
-                        <span slot="title">退出</span>
-					</el-menu-item>
 					<el-menu-item index="explain">
                         <i class="el-icon-warning"></i>
                         <span slot="title">说明</span>
 					</el-menu-item>
+					<el-menu-item index="" @click="logout">
+                        <i class="el-icon-setting"></i>
+                        <span slot="title">退出</span>
+					</el-menu-item>
 				</el-menu>
 			</el-col>
-			<el-col :span="20" style="height: 100%;overflow: auto;">
+			<el-col :span="20" type="flex" justify="center" style="height: 100%;" >
 				<keep-alive>
 				    <router-view></router-view>
-				</keep-alive>
+				</keep-alive>					
 			</el-col>
 		</el-row>
   	</div>
 </template>
 
 <script>
+	// import topbar from '@/components/Topbar'
     export default {
 		computed: {
 			defaultActive: function(){
@@ -58,6 +59,15 @@
 .fullpage{
     height: 100%;
     width:100%;
+}
+.topbar{
+	width: 100%;
+	height: 8%;
+	background-color: gray;
+}
+.content{
+	width:100%;
+	background-color: yellow;
 }
 </style>
 

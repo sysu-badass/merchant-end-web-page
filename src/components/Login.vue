@@ -11,7 +11,7 @@
                 </div> -->
 
                 <el-form-item prop="password">
-                    <el-input type="password" placeholder="密码" v-model="ruleForm.password" @keyup.enter.native="submitForm('ruleForm')"></el-input>
+                    <el-input type="password" placeholder="密码" v-model="ruleForm.password" @keyup.enter.native="login('ruleForm')"></el-input>
                 </el-form-item>
                 <!-- <div class="pass-error" v-if="pass-error">
                     <span>{{passerrinfo}}</span>
@@ -20,7 +20,7 @@
                 <div class="login-btn">
                     <el-button type="primary" @click="login('ruleForm')">登录</el-button>
                 </div>
-                <p class="register" @click="register()">注册</p>  
+                <p class="register" @click="goregister()">注册</p>  
             </el-form>
         </div>
     </div>    
@@ -30,9 +30,14 @@
     import Vue from 'vue'
     import axios from 'axios'
     import topbar from '@/components/Topbar'
+    
 
     export default {
         name: 'login',
+        localStorage:{
+            access_token:'',
+            fresh_token:''
+        },
         data() {
             return {
                 ruleForm: {
@@ -51,6 +56,7 @@
         },
         methods: {
             login(formName) {
+                var self = this;
                 var bodyFormData = new FormData();
                 bodyFormData.set('username',this.$data.ruleForm['username']);
                 bodyFormData.set('password', this.$data.ruleForm['password']);            
@@ -61,13 +67,20 @@
                     config: { headers: {'Content-Type': 'multipart/form-data' }}                   
                 })
                 .then(function (response) {
-                  console.log(response);
+                    console.log(response);
+                    if(response.status==200){ // temporary, because API not finished yet, so don't know status code 
+                        window.localStorage.setItem('access_token',response.data['access_token']);
+                        window.localStorage.setItem('refresh_token',response.data['refresh_token']);
+                        self.$router.push('/dashboard');
+                    }else{
+                        alert("something went wrong")
+                    }                    
                 })
                 .catch(function (error) {
                   console.log(error);
                 });
             },
-            register() {
+            goregister() {
                 this.$router.push('/register');
             }
         }

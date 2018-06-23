@@ -6,8 +6,9 @@ import router from './router'
 import axios from 'axios'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-default/index.css';    // 默认主题
+import VueLocalStorage from 'vue-localstorage'
 
-Vue.use(ElementUI,axios);
+Vue.use(ElementUI,axios, VueLocalStorage);
 
 Vue.config.productionTip = false
 

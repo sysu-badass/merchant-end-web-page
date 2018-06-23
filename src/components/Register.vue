@@ -21,6 +21,7 @@
                 <div class="register-btn">
                     <el-button type="primary" @click="submitForm('ruleForm')">注册</el-button>
                 </div>
+                <p class="register" @click="gologin()">已有账号?</p>  
             </el-form>
         </div>
     </div>    
@@ -87,6 +88,9 @@
             };
         },
         methods: {
+            gologin(){
+                this.$router.push('/login');
+            },
             submitForm(formName) {
                 var bodyFormData = new FormData();
                 bodyFormData.set('username',this.$data.ruleForm['username']);

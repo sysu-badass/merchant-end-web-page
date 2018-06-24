@@ -71,6 +71,7 @@
                     if(response.status==200){ // temporary, because API not finished yet, so don't know status code 
                         window.localStorage.setItem('access_token',response.data['access_token']);
                         window.localStorage.setItem('refresh_token',response.data['refresh_token']);
+                        window.localStorage.setItem('username',self.$data.ruleForm['username'])
                         self.$router.push('/dashboard');
                     }else{
                         alert("something went wrong")

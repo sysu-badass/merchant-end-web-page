@@ -3,13 +3,16 @@ import Router from 'vue-router'
 import Login from '@/components/Login'
 import Register from '@/components/Register'
 import Dashboard from '@/components/Dashboard' 
-import Temp from '@/components/Temp' 
-import Orderlist from '@/components/Orderlist'
+// import Temp from '@/components/Temp' 
+// import Orderlist from '@/components/Orderlist'
 import Info from '@/components/Info'
 import Dishes from '@/components/Dishes'
 import QRCode from '@/components/QRCode'
 import Explain from '@/components/Explain'
-
+import NewOrder from '@/components/NewOrder'
+import ProcessingOrder from '@/components/ProcessingOrder'
+import FinishedOrder from '@/components/FinishedOrder'
+import RejectedOrder from '@/components/RejectedOrder'
 
 
 Vue.use(Router)
@@ -41,25 +44,25 @@ const routes = [{
         }
       },{
         path:'/neworder',
-        component: Orderlist,
+        component: NewOrder,
         meta:{
           requiresAuth: true
         }
       },{
-        path:'/preparingorder',
-        component: Orderlist,
+        path:'/processingorder',
+        component: ProcessingOrder,
         meta:{
           requiresAuth: true
         }
       },{
         path:'/finishedorder',
-        component: Orderlist,
+        component: FinishedOrder,
         meta:{
           requiresAuth: true
         }
       },{
         path:'/rejectedorder',
-        component: Orderlist,
+        component: RejectedOrder,
         meta:{
           requiresAuth: true
         }

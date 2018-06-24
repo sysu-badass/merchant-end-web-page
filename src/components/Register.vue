@@ -92,6 +92,7 @@
                 this.$router.push('/login');
             },
             submitForm(formName) {
+                var self = this;
                 var bodyFormData = new FormData();
                 bodyFormData.set('username',this.$data.ruleForm['username']);
                 bodyFormData.set('password', this.$data.ruleForm['password']);
@@ -103,8 +104,12 @@
                     config: { headers: {'Content-Type': 'multipart/form-data' }}                   
                 })
                 .then(function (response) {
-                  console.log(response);
-                  
+                    console.log(response);
+                    alert("successfully created " + self.$data.ruleForm['username']);
+                    window.localStorage.setItem('username',self.$data.ruleForm['username']);
+                    window.localStorage.setItem('access_token',response.data['access_token']);
+                    window.localStorage.setItem('refresh_token',response.data['refresh_token']);
+                    self.$router.push('/dashboard');
                 })
                 .catch(function (error) {
                   console.log(error);

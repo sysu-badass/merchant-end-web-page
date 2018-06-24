@@ -16,17 +16,14 @@
 			          <el-form-item label="用户名" >
 			            <span>{{ props.row.user_name }}</span>
 			          </el-form-item>
-			          <el-form-item label="店铺名称">
-			            <span>{{ props.row.restaurant_name }}</span>
+			          <el-form-item label="桌号">
+			            <span>{{ props.row.tableID }}</span>
 			          </el-form-item>
-			          <el-form-item label="收货地址">
-			            <span>{{ props.row.address }}</span>
+			          <el-form-item label="点餐时间">
+			            <span>{{ props.row.time }}</span>
 			          </el-form-item>
-			          <el-form-item label="店铺 ID">
-			            <span>{{ props.row.restaurant_id }}</span>
-			          </el-form-item>
-			          <el-form-item label="店铺地址">
-			            <span>{{ props.row.restaurant_address }}</span>
+			          <el-form-item label="点餐内容">
+			            <span>{{ props.row.content }}</span>
 			          </el-form-item>
 			        </el-form>
 			      </template>
@@ -47,11 +44,7 @@
       				<template slot-scope="scope">
       				  <el-button
       				    size="mini"
-      				    @click="handleEdit(scope.$index, scope.row)">接受</el-button>
-      				  <el-button
-      				    size="mini"
-      				    type="danger"
-      				    @click="handleDelete(scope.$index, scope.row)">拒绝</el-button>
+      				    @click="handleFinish(scope.$index, scope.row)">完成</el-button>
       				</template>
 			    </el-table-column>
 				</el-table>
@@ -76,22 +69,24 @@
 			components:{
 				topbar
 			},
+			methods:{
+				handleFinish(){
+					alert("finished");
+				}
+			},
 			data(){
 				return{
 					activeName:'new',
+					count:1,
 					tableData:[{
 							id:'1',
 							total_amount: 10,
-							status:'finished'						
+							status:'processing'						
 						}
 					]	
 				}
-			},
-			
-			
+			}
 		}
-
-
 </script>
 
 

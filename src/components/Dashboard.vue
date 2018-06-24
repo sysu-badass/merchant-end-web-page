@@ -1,13 +1,13 @@
 <template>
 	<div class="fullpage">
 		<el-row style="height: 100%;">
-	  		<el-col :span="4"  style="min-height: 100%; background-color: #324057;">
+	  		<el-col :span="4" class="leftside" style="min-height: 100%; background-color: #324057;">
 				<el-menu :default-active="defaultActive" style="min-height: 100%;" theme="dark" router>
 					<el-menu-item index="dashboard"><i class="el-icon-menu"></i>商户中心</el-menu-item>
 					<el-submenu index="1">
 						<template slot="title"><i class="el-icon-document"></i>订单管理</template>
 						<el-menu-item index="neworder">新订单</el-menu-item>
-						<el-menu-item index="preparingorder">准备中</el-menu-item>
+						<el-menu-item index="processingorder">准备中</el-menu-item>
 						<el-menu-item index="finishedorder">已完成</el-menu-item>
 						<el-menu-item index="rejectedorder">已拒绝</el-menu-item>
 					</el-submenu>
@@ -29,7 +29,7 @@
 					</el-menu-item>
 				</el-menu>
 			</el-col>
-			<el-col :span="20" type="flex" justify="center" style="height: 100%;" >
+			<el-col :span="20" style="height: 100%;" class="rightside" >
 				<keep-alive>
 				    <router-view></router-view>
 				</keep-alive>					
@@ -68,6 +68,13 @@
 .content{
 	width:100%;
 	background-color: yellow;
+}
+.leftside{
+	visibility: visible;
+}
+.rightside{
+	 /* background-color: green;
+	border:solid red 10px; */
 }
 </style>
 

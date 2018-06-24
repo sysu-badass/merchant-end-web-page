@@ -1,10 +1,8 @@
 <template>
-    <div class="header_container"> 
-      <div>
-
-      </div>
+    <div id='topbar' class="header_container"> 
     </div>
 </template>
+
 
 <style>
 .header_container{

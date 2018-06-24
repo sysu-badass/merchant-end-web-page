@@ -13,7 +13,8 @@ import NewOrder from '@/components/NewOrder'
 import ProcessingOrder from '@/components/ProcessingOrder'
 import FinishedOrder from '@/components/FinishedOrder'
 import RejectedOrder from '@/components/RejectedOrder'
-
+import center from '@/components/Center'
+import addfood from '@/components/Addfood'
 
 Vue.use(Router)
 
@@ -84,6 +85,12 @@ const routes = [{
         meta:{
           requiresAuth: true
         }
+      },{
+        path:'/addfood',
+        component: addfood,
+        meta:{
+          requiresAuth: true
+        }        
       }
     ]
   }

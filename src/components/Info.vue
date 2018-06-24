@@ -1,5 +1,5 @@
 <template>
-    <div  >
+    <div class="container">
         <topbar></topbar>
         <header class="info-title">门店信息</header>
         <div class="info-main">
@@ -94,7 +94,12 @@
         }
     }
 </script>
+
 <style scoped>
+    .container{
+        /* background-color:yellow; */
+        height: 100%;
+    }
     .info-title{
         margin-top: 20px;
         text-align: center;
@@ -106,6 +111,4 @@
         margin: 20px auto 0;
         border-radius: 10px;
     }
-
-
 </style>

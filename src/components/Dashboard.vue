@@ -3,7 +3,7 @@
 		<el-row style="height: 100%;">
 	  		<el-col :span="4" class="leftside" style="min-height: 100%; background-color: #324057;">
 				<el-menu :default-active="defaultActive" style="min-height: 100%;" theme="dark" router>
-					<el-menu-item index="dashboard"><i class="el-icon-menu"></i>商户中心</el-menu-item>
+					<el-menu-item index="/dashboard"><i class="el-icon-menu"></i>商户中心</el-menu-item>
 					<el-submenu index="1">
 						<template slot="title"><i class="el-icon-document"></i>订单管理</template>
 						<el-menu-item index="neworder">新订单</el-menu-item>
@@ -11,15 +11,15 @@
 						<el-menu-item index="finishedorder">已完成</el-menu-item>
 						<el-menu-item index="rejectedorder">已拒绝</el-menu-item>
 					</el-submenu>
-                    <el-menu-item index="dishes">
+                    <el-menu-item index="/dishes">
                         <i class="el-icon-menu"></i>
                         <span slot="title">菜品管理</span>
 					</el-menu-item>
-					<el-menu-item index="qrcode">
+					<el-menu-item index="/qrcode">
                         <i class="el-icon-menu"></i>
                         <span slot="title">生成桌码</span>
 					</el-menu-item>
-					<el-menu-item index="explain">
+					<el-menu-item index="/explain">
                         <i class="el-icon-warning"></i>
                         <span slot="title">说明</span>
 					</el-menu-item>

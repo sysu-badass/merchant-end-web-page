@@ -1,10 +1,11 @@
 <template>
     <div>
         <topbar></topbar>
+        <!-- <div>{{ $route.params.dishname }}</div> -->
         <div class="info-main">
             <el-form ref="form" :model="form" label-width="80px">
                 <el-form-item label="菜品名称">
-                    <el-input v-model="form.name"></el-input>
+                    <el-input v-model="$route.params.dishname"></el-input>
                 </el-form-item>
                 <el-form-item label="原料">
                     <el-input type='textarea' v-model="form.notification"></el-input>
@@ -42,22 +43,23 @@
                     </el-dialog>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" circle @click="addFood">添加菜品</el-button>
+                    <el-button type="primary" circle @click="addFood">保存修改</el-button>
                 </el-form-item>
             </el-form>
 
         </div>
-    </div>        
+    </div>
+
 </template>
 
 <script>
-import topbar from '@/components/Topbar'
-export default {
-    components:{
-        topbar
-    },
-    data() {
-        return {
+    import topbar from '@/components/Topbar'
+
+    export default{
+        components:{
+            topbar
+        },data() {
+         return {
             form: {
             name: '',
             region: '',
@@ -72,26 +74,9 @@ export default {
             }
         }
     },
-    methods: {
-      open3() {
-        this.$prompt('请输入分类名称', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消'
-        }).then(({ value }) => {
-          this.$message({
-            type: 'success',
-            message: '新建分类: ' + value
-          });
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '取消输入'
-          });       
-        });
-      }
     }
-}
 </script>
+
 <style scoped>
 .container{
     /* background-color:yellow; */

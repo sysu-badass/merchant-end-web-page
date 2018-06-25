@@ -4,6 +4,10 @@
       <el-card :body-style="{ padding: '0px' }">
           <img :src='info.dishImage' class="image">
           <div style="padding-left: 5px">
+            <div class="bottom clearfix">
+              <time class="data">名称: {{info.dishName}}</time>
+              <!-- <el-button type="text" class="button">详细</el-button> -->
+            </div>
             <!-- <span>{{info.price}}</span> -->
             <div class="bottom clearfix">
               <time class="data">价格: {{info.price}}</time>
@@ -32,7 +36,7 @@
     },
     methods: {
       detail(){
-        alert("detail page")
+        this.$router.push('/dishes/'+this.info.dishName)
       }
     }
   }

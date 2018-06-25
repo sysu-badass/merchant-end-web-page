@@ -15,6 +15,8 @@ import FinishedOrder from '@/components/FinishedOrder'
 import RejectedOrder from '@/components/RejectedOrder'
 import center from '@/components/Center'
 import addfood from '@/components/Addfood'
+import Detail from '@/components/Detail'
+
 
 Vue.use(Router)
 
@@ -37,7 +39,7 @@ const routes = [{
       requiresAuth: true
     },
     component:Dashboard,
-    children:[{
+    children:[ {
         path:'',
         component: Info,
         meta:{
@@ -73,7 +75,7 @@ const routes = [{
         meta:{
           requiresAuth: true
         }
-      },{
+      } ,{
         path:'/qrcode',
         component: QRCode,
         meta:{
@@ -90,8 +92,15 @@ const routes = [{
         component: addfood,
         meta:{
           requiresAuth: true
+        }
+      },{
+          path:'/dishes/:dishname',
+          component:Detail , 
+          meta:{
+            requiresAuth: true
+          }   
         }        
-      }
+      
     ]
   }
 ]

@@ -13,7 +13,6 @@ import NewOrder from '@/components/NewOrder'
 import ProcessingOrder from '@/components/ProcessingOrder'
 import FinishedOrder from '@/components/FinishedOrder'
 import RejectedOrder from '@/components/RejectedOrder'
-import center from '@/components/Center'
 import addfood from '@/components/Addfood'
 import Detail from '@/components/Detail'
 
@@ -112,13 +111,17 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   let token = window.localStorage.getItem('access_token')
-  if (to.meta.requiresAuth && (!token || token === undefined)) {
-    next({
-      path: '/login'
-      // query: { redirect: to.fullPath }
-    })
+  if (to.meta.requiresAuth) {
+    if(!token || token === undefined){
+      next({
+        path: '/login',
+        // query: { redirect: to.fullPath }
+      })
+    }else{
+      next();
+    }
   } else {
-    next()
+    next();
   }
 })
 

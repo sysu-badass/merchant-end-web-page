@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <topbar></topbar>
-        <el-select  style="padding:10px" v-model="value8" filterable placeholder="选择食品种类">
+        <el-select  style="padding:10px" :value="myinfo" filterable placeholder="选择食品种类">
           <el-option
             v-for="item in options"
             :key="item.value"

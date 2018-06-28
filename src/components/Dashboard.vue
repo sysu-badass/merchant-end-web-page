@@ -48,7 +48,8 @@
         },
         methods:{
             logout(){
-                window.localStorage.removeItem("access_token")
+				window.localStorage.removeItem("access_token")
+				window.localStorage.removeItem("imageToken")
                 this.$router.push('/login')
             }
         }

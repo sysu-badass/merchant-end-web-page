@@ -1,26 +1,19 @@
 <template>
     <div class="login-wrap">
-        <div class="ms-title">Eorder.</div>
+        <div class="ms-title" >Eorder.</div>
         <div class="ms-login">
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="0px" class="demo-ruleForm">
                 <el-form-item prop="username">
                     <el-input v-model="ruleForm.username" placeholder="账号" ></el-input>
                 </el-form-item>
-                <!-- <div class="name-error" v-if="name-error">
-                    <span>{{name-errinfo}}</span>
-                </div> -->
-
                 <el-form-item prop="password">
                     <el-input type="password" placeholder="密码" v-model="ruleForm.password" @keyup.enter.native="login('ruleForm')"></el-input>
                 </el-form-item>
-                <!-- <div class="pass-error" v-if="pass-error">
-                    <span>{{passerrinfo}}</span>
-                </div> -->
-                
                 <div class="login-btn">
                     <el-button type="primary" @click="login('ruleForm')">登录</el-button>
                 </div>
                 <p class="register" @click="goregister()">注册</p>  
+                
             </el-form>
         </div>
     </div>    
@@ -28,7 +21,7 @@
 
 <script>
     import Vue from 'vue'
-    import axios from 'axios'
+    import axios from '../router/http'
     import topbar from '@/components/Topbar'
     
 
@@ -54,7 +47,29 @@
                 }
             }
         },
+
         methods: {
+            getInfo(){
+                axios.get('/api/restaurants/info')
+                .then(response=>{
+                    window.localStorage.setItem('name',response.data['name']);
+                    window.localStorage.setItem('description',response.data['description']);
+                    window.localStorage.setItem('address',response.data['address']);
+                    window.localStorage.setItem('phone',response.data['phone']);
+                    window.localStorage.setItem('notification',response.data['notification']);
+                    window.localStorage.setItem('opentime',response.data['opentime']);
+                })
+                .catch(
+
+                )
+            },
+            getqiniutoken(){
+                axios.get('/api/qiniutoken')
+                .then(response => {
+                    window.localStorage.setItem('imageToken',response.data['token'])
+                })
+                .catch()
+            },
             login(formName) {
                 var self = this;
                 var bodyFormData = new FormData();
@@ -69,9 +84,8 @@
                 .then(function (response) {
                     console.log(response);
                     if(response.status==200){ // temporary, because API not finished yet, so don't know status code 
-                        window.localStorage.setItem('access_token',response.data['access_token']);
-                        window.localStorage.setItem('refresh_token',response.data['refresh_token']);
-                        window.localStorage.setItem('username',self.$data.ruleForm['username'])
+                        self.getInfo();
+                        self.getqiniutoken();
                         self.$router.push('/dashboard');
                     }else{
                         alert("something went wrong")

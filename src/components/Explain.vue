@@ -3,15 +3,36 @@
         <topbar></topbar>
         <div class="e_content">
             易点单(Eorder)餐饮管理系统-商家端
+            <el-button @click="testmock" >test</el-button>
         </div>
     </div>
 </template>
 
 <script>
     import topbar from '@/components/Topbar'
+    import axios from 'axios'
     export default{
         components:{
             topbar
+        },
+        data(){
+            return {
+                userInfo:{}
+            }
+        },
+        methods:{
+            testmock(){
+                alert("a")
+                axios.get('/api/news').then(({data})=>{
+                    console.log(data);
+                    alert(data["userid"]);
+                    if(data.error === 0){
+                      this.userInfo = data.data;
+                    }else{
+                      this.userInfo = {};
+                    }
+                })
+            }
         }
     }
 </script>

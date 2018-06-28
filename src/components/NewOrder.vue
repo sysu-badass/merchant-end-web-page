@@ -8,10 +8,10 @@
     			<el-tab-pane label="已完成" name="finished">已完成订单</el-tab-pane>
     			<el-tab-pane label="已拒绝" name="rejected">已拒绝订单</el-tab-pane>
   			</el-tabs> -->
-        <el-table :data="tableData" @expand='expand' :expand-row-keys='expendRow'
+        <el-table :data="tableData" 
         :row-key="row => row.index" style="width: 100%">
 			    <el-table-column type="expand">
-			      	<template scope="props">
+			      	<template slot-scope="props">
 			        <el-form label-position="left" inline class="demo-table-expand">
 			          <el-form-item label="用户名" >
 			            <span>{{ props.row.user_name }}</span>
@@ -44,20 +44,17 @@
       				<template slot-scope="scope">
       				  <el-button
       				    size="mini"
-      				    @click="handleReceive(scope.$index, scope.row)">接受</el-button>
+      				    @click="handleReceive(slot-scope.$index, slot-scope.row)">接受</el-button>
       				  <el-button
       				    size="mini"
       				    type="danger"
-      				    @click="handleReject(scope.$index, scope.row)">拒绝</el-button>
+      				    @click="handleReject(slot-scope.$index, slot-scope.row)">拒绝</el-button>
       				</template>
 			    </el-table-column>
 				</el-table>
 
         <div class="Pagination" style="text-align: left;margin-top: 10px;">
     			<el-pagination
-    			  @size-change="handleSizeChange"
-    			  @current-change="handleCurrentChange"
-    			  :current-page.sync="currentPage1"
     			  :page-size="50"
     			  layout="total, prev, pager, next"
     			  :total="count">
@@ -88,6 +85,7 @@
 				return{
 					count:1,
 					activeName:'new',
+					expendRow:'',
 					tableData:[{
 							id:'1',
 							total_amount: 10,

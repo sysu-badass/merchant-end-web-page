@@ -5,15 +5,25 @@
         <div class="info-main">
              <el-form ref="form" :model="form" label-width="80px">            
                 <el-form-item label="店内环境">
+                    <div class="profile-pic" :key="index" v-if="item.url !==''"  v-for="(item, index) in images">
+                        <img :src="item.url" class="image">
+                        <div v-if="!notEditing" class="edit"><el-button @click='removeImage(item,index)'>删除</el-button></div>
+                    </div>
                     <el-upload
-                      action="https://upload-z2.qiniup.com"
-                      list-type="picture-card"
-                      :on-success="handleSuccess"
-                      :on-error="handleError"
-                      :before-upload="beforeUpload"
-                      :data="postData">
-                      <i class="el-icon-plus"></i>
+                        class="uploadimage"
+                        v-if="!notEditing"  
+                        list-type="picture-card"            
+                        action="https://upload-z2.qiniup.com"
+                        :on-preview="handlePictureCardPreview"
+                        :on-remove="handleRemove"
+                        :on-success="handleSuccess"
+                       :before-upload="beforeUpload"
+                       :data="postData">
+                       <el-button size="small" type="primary">点击上传</el-button>
                     </el-upload>
+                    <el-dialog :visible.sync="dialogVisible">
+                      <img width="100%" :src="dialogImageUrl" alt="">
+                    </el-dialog>
                 </el-form-item>
             </el-form>    
             <el-form ref="form" :model="form" label-width="80px">
@@ -64,7 +74,11 @@
                 postData:{
                     token: window.localStorage.getItem('imageToken')
                 },
-                imageUrl:''
+                imageUrl:'',
+                dialogImageUrl: '',
+                dialogVisible: false,
+                images:[],
+                added_images:[]
             }
         },
         methods: {
@@ -80,7 +94,11 @@
                     bodyFormData.set('address',this.$data.form['address']);
                     bodyFormData.set('phone', this.$data.form['phone']);    
                     bodyFormData.set('opentime',this.$data.form['opentime']);
-                    bodyFormData.set('notification', this.$data.form['notification']);        
+                    bodyFormData.set('notification', this.$data.form['notification']);
+                    for( var i =0;i< this.added_images.length ; i++){
+                        self.images.push(this.added_images.pop())
+                    }  
+                    bodyFormData.set('images',this.$data.images)      
                     axios({
                         method: 'post',
                         url: '/api/restaurants/editinfo',
@@ -98,21 +116,43 @@
                     .catch()
                 }
             },
+            handleRemove(file, fileList) {
+              console.log(file, fileList);
+            },
+            handlePictureCardPreview(file) {
+              this.dialogImageUrl = file.url;
+              this.dialogVisible = true;
+            },
             handleSuccess(res,file){
-                this.imageUrl ='http://pb1ftb8nx.bkt.clouddn.com/'+ res.key
-                console.log(this.imageUrl)
-                axios.post('/restaurants/info/pics').then(
-                    alert("already upload the pic to server")
-                ).catch(
-                    alert("failed, try again")
-                )
+                var self = this; 
+                // console.log('http://pb1ftb8nx.bkt.clouddn.com/'+ res.key)
+                //add new image url to data.image,then send to bacak end
+                this.added_images.push({url: 'http://pb1ftb8nx.bkt.clouddn.com/'+ res.key})
+                // axios.post('/api/restaurants/addpics',)
+                // .then(response=>{
+                //     // alert("already upload the pic to server")
+                // }
+                // ).catch(
+                //     // alert("failed, try again")
+                // )
             },
             handleError(res){
                 console.log(res)
             },
             beforeUpload(){
                 this.$data.postData.token = window.localStorage.getItem('imageToken')
+            },
+            removeImage(item,index){
+                this.images.splice(index,1)
             }
+        },
+        created: function(){
+            var self = this;
+            axios.get('/api/restaurants/getpics')
+            .then(response=>{
+                // console.log(response.data)
+                this.$data.images =  response.data['images']
+            }).catch()            
         },
         components:{
             topbar
@@ -121,10 +161,19 @@
 </script>
 
 <style scoped>
+    .picbutton{
+        z-index: 9999;
+    }
     .container{
         /* background-color:yellow; */
         height: 100%;
+        overflow-y: scroll;
     }
+    /* .uploadimage{
+        height: 30px;
+        width: 30px;
+
+    } */
     .info-title{
         margin-top: 20px;
         text-align: center;
@@ -135,5 +184,34 @@
         min-height: 400px;
         margin: 20px auto 0;
         border-radius: 10px;
+    }
+    .image {
+        width: 145px;
+        height: 145px;
+        display: block;
+        float: left;
+        padding-right: 5px;
+        border-radius: 10px;
+    }
+    .profile-pic {
+	position: relative;
+	display: inline-block;
+    }
+
+    .profile-pic:hover .edit {
+    	display: block;
+    }
+
+    .edit {
+    	padding-top: 7px;	
+    	padding-right: 7px;
+    	position: absolute;
+    	right: 0;
+    	top: 0;
+    	display: none;
+    }
+
+    .edit a {
+    	color: #000;
     }
 </style>

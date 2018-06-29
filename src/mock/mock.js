@@ -12,11 +12,9 @@ const restaurant_info = function () {
 }
 
 const edit_restaurant_info = function(){
-  if(Math.random()<0.5){
+ 
     return {status:200}
-  }else{
-    return {status:233}
-  }
+ 
 }
 
 const upload_token = function(){
@@ -32,7 +30,22 @@ const newPic = function (){
   }
 }
 
+const get_restaurant_pics = function(){
+  return{
+    images:  [{
+      url:'http://pb1ftb8nx.bkt.clouddn.com/Fgq1LF09ZUtSDNWDS4Y-gGGIJ-a5'
+    },{
+      url:'http://pb1ftb8nx.bkt.clouddn.com/Fh6SftkItn2oewVGVntIax3xJ0m-'
+    },{
+      url:'http://pb1ftb8nx.bkt.clouddn.com/FmKogWIpetlSGmP0L7FpVRxw8Rjz'
+    },{
+      url:'http://pb1ftb8nx.bkt.clouddn.com/Fq_XLiLQ3UrO6tMdAEnNm56bHUTe'
+    }]
+  }
+}
+
 Mock.mock('/api/restaurants/info', 'get',  restaurant_info);
 Mock.mock('/api/restaurants/editinfo', 'post',  edit_restaurant_info );
 Mock.mock('/api/qiniutoken', 'get',  upload_token );
-Mock.mock('/restaurants/info/pics', 'post',  newPic);
+Mock.mock('/api/restaurants/addpics', 'post',  newPic);
+Mock.mock('/api/restaurants/getpics','get',get_restaurant_pics)

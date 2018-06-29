@@ -116,8 +116,15 @@
                     .catch()
                 }
             },
-            handleRemove(file, fileList) {
-              console.log(file, fileList);
+            // handleRemove(file, fileList) {
+            //   console.log(file, fileList);
+            // },
+           handleRemove(file, fileList) {
+              for(var i =0;i<this.added_images.length;i++){
+                  if(this.added_images[i].url=="http://pb1ftb8nx.bkt.clouddn.com/"+file.response.key){
+                      this.added_images.splice(i,1)
+                  }
+              }
             },
             handlePictureCardPreview(file) {
               this.dialogImageUrl = file.url;

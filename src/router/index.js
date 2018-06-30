@@ -9,10 +9,7 @@ import Info from '@/components/Info'
 import Dishes from '@/components/Dishes'
 import QRCode from '@/components/QRCode'
 import Explain from '@/components/Explain'
-import NewOrder from '@/components/NewOrder'
-import ProcessingOrder from '@/components/ProcessingOrder'
-import FinishedOrder from '@/components/FinishedOrder'
-import RejectedOrder from '@/components/RejectedOrder'
+import Orderlist from '@/components/Orderlist'
 import addfood from '@/components/Addfood'
 import Detail from '@/components/Detail'
 
@@ -45,26 +42,8 @@ const routes = [{
           requiresAuth: true
         }
       },{
-        path:'/neworder',
-        component: NewOrder,
-        meta:{
-          requiresAuth: true
-        }
-      },{
-        path:'/processingorder',
-        component: ProcessingOrder,
-        meta:{
-          requiresAuth: true
-        }
-      },{
-        path:'/finishedorder',
-        component: FinishedOrder,
-        meta:{
-          requiresAuth: true
-        }
-      },{
-        path:'/rejectedorder',
-        component: RejectedOrder,
+        path:'/orderlist',
+        component: Orderlist,
         meta:{
           requiresAuth: true
         }

@@ -3,14 +3,14 @@
 		<el-row style="height: 100%;">
 	  		<el-col :span="4" class="leftside" style="min-height: 100%; background-color: #324057;">
 				<el-menu :default-active="defaultActive" style="min-height: 100%;" theme="dark" router>
-					<el-menu-item index="/dashboard"><i class="el-icon-menu"></i>商户中心</el-menu-item>
-					<el-submenu index="1">
-						<template slot="title"><i class="el-icon-document"></i>订单管理</template>
-						<el-menu-item index="neworder">新订单</el-menu-item>
-						<el-menu-item index="processingorder">准备中</el-menu-item>
-						<el-menu-item index="finishedorder">已完成</el-menu-item>
-						<el-menu-item index="rejectedorder">已拒绝</el-menu-item>
-					</el-submenu>
+					<el-menu-item index="/dashboard">
+						<i class="el-icon-menu"></i>
+					    <span slot="title">商家中心</span>
+						</el-menu-item>
+                    <el-menu-item index="/orderlist">
+                        <i class="el-icon-menu"></i>
+                        <span slot="title">订单管理</span>
+					</el-menu-item>
                     <el-menu-item index="/dishes">
                         <i class="el-icon-menu"></i>
                         <span slot="title">菜品管理</span>

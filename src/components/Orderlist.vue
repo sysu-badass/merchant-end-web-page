@@ -9,7 +9,7 @@
     			<el-tab-pane label="已拒绝" name="rejected">已拒绝订单</el-tab-pane>
   			</el-tabs>
  
-        <el-table :data="showData" :row-key="row => row.index" style="width: 100%">
+        <el-table :data="current_page_data" :row-key="row => row.index" style="width: 100%">
 			    <el-table-column type="expand">
 			      	<template slot-scope="props">
 			        <el-form label-position="left" inline class="demo-table-expand">
@@ -92,12 +92,15 @@
 			},
 			created: function(){
 				axios.get('/api/restaurants/orders').then(response =>{
-					console.log(response.data)
+					// console.log(response.data)
 					this.tableData = response.data
 					for(var i = 0;i < this.tableData.length;i++){
 						if(this.tableData[i].status == 'new'){
 							this.showData.push(this.tableData[i])
 						}
+					}
+					for(var i =0; i<this.showData.length && i<this.page_size; i++){
+						this.current_page_data.push(this.showData[i])
 					}
 					this.count = this.showData.length
 				}).catch()
@@ -105,42 +108,61 @@
 			},
 			methods:{
 				handleAccept(a,b){
-					console.log(a,b)
+					// console.log(a,b)
 					for(var i = 0;i<this.tableData.length;i++){
 						if(this.tableData[i].id==b.id){
 							this.tableData[i].status = 'processing'
+							break;
 						}
 					}
 					for(var i = 0; i< this.showData.length;i++){
 						if(this.showData[i].id == b.id){
 							this.showData.splice(i,1)
+							break;
 						}
+					}
+					this.current_page_data =[];
+					for(var i =(this.current_page-1)*this.page_size;i<this.page_size && i<this.showData.length ;i++){
+							this.current_page_data.push(this.showData[i])
 					}
 					this.count = this.showData.length
 				},
+
 				handleReject(a,b){
 					for(var i = 0;i<this.tableData.length;i++){
 						if(this.tableData[i].id==b.id){
 							this.tableData[i].status = 'rejected'
+							break;
 						}
 					}
 					for(var i = 0; i< this.showData.length;i++){
 						if(this.showData[i].id == b.id){
 							this.showData.splice(i,1)
+							break;
 						}
+					}
+					this.current_page_data =[];
+					for(var i =0;i<this.page_size && i<this.showData.length ;i++){
+							this.current_page_data.push(this.showData[i])
 					}
 					this.count = this.showData.length
 				},
 				handleFinish(a,b){
 					for(var i = 0;i<this.tableData.length;i++){
 						if(this.tableData[i].id==b.id){
-							this.tableData[i].status = 'finished'
+							this.tableData[i].status = 'finished';
+							break;
 						}
 					}
 					for(var i = 0; i< this.showData.length;i++){
 						if(this.showData[i].id == b.id){
-							this.showData.splice(i,1)
+							this.showData.splice(i,1);
+							break;
 						}
+					}
+					this.current_page_data =[];
+					for(var i =0;i<this.page_size && i<this.showData.length ;i++){
+							this.current_page_data.push(this.showData[i])
 					}
 					this.count = this.showData.length
 				},
@@ -148,12 +170,18 @@
 					for(var i = 0;i<this.tableData.length;i++){
 						if(this.tableData[i].id==b.id){
 							this.tableData[i].status = 'rejected'
+							break;
 						}
 					}
 					for(var i = 0; i< this.showData.length;i++){
 						if(this.showData[i].id == b.id){
 							this.showData.splice(i,1)
+							break;
 						}
+					}
+					this.current_page_data =[];
+					for(var i =0;i<this.page_size && i<this.showData.length ;i++){
+							this.current_page_data.push(this.showData[i])
 					}
 					this.count = this.showData.length
 				},
@@ -168,6 +196,10 @@
 							this.showData.splice(i,1)
 						}
 					}
+					this.current_page_data =[];
+					for(var i =0;i<this.page_size && i<this.showData.length ;i++){
+							this.current_page_data.push(this.showData[i])
+					}
 					this.count = this.showData.length
 				},
 				handleClick(a,b){
@@ -176,10 +208,16 @@
 					while(this.showData.length != 0 ){
 						this.showData.pop()
 					}
+					while(this.current_page_data.length != 0 ){
+						this.current_page_data.pop()
+					}
 					for(var i =0; i < this.tableData.length ;i++){
 						if(this.tableData[i].status == this.activeName){
 							this.showData.push(this.tableData[i])
 						}
+					}
+					for(var i = 0;i<this.showData.length && i<this.page_size;i++){
+						this.current_page_data.push(this.showData[i])
 					}
 					this.count = this.showData.length
 				
@@ -193,6 +231,10 @@
 				handleCurrentChange(val){
 					this.current_page=val;
 					console.log(this.current_page)
+					this.current_page_data =[];
+					for(var i =(this.current_page-1)*this.page_size;i<this.current_page*this.page_size && i<this.showData.length ;i++){
+							this.current_page_data.push(this.showData[i])
+					}
 				}
 			},
 			data(){
@@ -201,6 +243,7 @@
 					current_page:1,
 					activeName:'new',
 					count:0,
+					current_page_data:[],
 					showData:[]	,
 					tableData:[]
 				}

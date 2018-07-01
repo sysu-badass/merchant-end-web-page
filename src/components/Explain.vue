@@ -3,7 +3,7 @@
         <topbar></topbar>
         <div class="e_content">
             易点单(Eorder)餐饮管理系统-商家端
-            <el-button @click="testmock" >test</el-button>
+            <el-button @click="test" >test</el-button>
         </div>
     </div>
 </template>
@@ -21,8 +21,8 @@
             }
         },
         methods:{
-            testmock(){
-                alert("a")
+            test(){
+                alert(this.$store.state.count)
                 axios.get('/api/news').then(({data})=>{
                     console.log(data);
                     alert(data["userid"]);

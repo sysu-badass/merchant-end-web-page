@@ -384,7 +384,72 @@ const get_orders = function(){
   }]
 }
 
+const menu = function(){
+  return [{
+    dishName:"凉拌尖椒皮蛋",
+    price:25,
+    monthlySales:10,
+    dishImage:'http://pb1ftb8nx.bkt.clouddn.com/%E5%87%89%E6%8B%8C%E5%B0%96%E6%A4%92%E7%9A%AE%E8%9B%8B.jpg'
+  },{
+    dishName:"梅菜扣肉",
+    price:25,
+    monthlySales:7,
+    dishImage:'http://pb1ftb8nx.bkt.clouddn.com/%E6%A2%85%E8%8F%9C%E6%89%A3%E8%82%89.jpg'
+  },{
+    dishName:"锅包里脊",
+    price:45,
+    monthlySales:3,
+    dishImage:'http://pb1ftb8nx.bkt.clouddn.com/%E9%94%85%E5%8C%85%E9%87%8C%E8%84%8A.jpeg'
+  },{
+    dishName:"酸菜鱼",
+    price:50,
+    monthlySales:50,
+    dishImage:'http://pb1ftb8nx.bkt.clouddn.com/%E9%85%B8%E8%8F%9C%E9%B1%BC.jpg'
+  },{
+    dishName:"麻婆豆腐",
+    price:50,
+    monthlySales:30,
+    dishImage:'http://pb1ftb8nx.bkt.clouddn.com/%E9%BA%BB%E5%A9%86%E8%B1%86%E8%85%90.jpg'   
+  },{
+    dishName:"糖醋鱼",
+    price:50,
+    monthlySales:30,
+    dishImage:'http://pb1ftb8nx.bkt.clouddn.com/%E7%B3%96%E9%86%8B%E9%B1%BC.jpg'   
+  },{
+    dishName:"回锅肉",
+    price:50,
+    monthlySales:30,
+    dishImage:'http://pb1ftb8nx.bkt.clouddn.com/%E5%9B%9E%E9%94%85%E8%82%89.jpg'
+  }]
+}
 
+const addfood = function(){
+  return{
+    status: 200
+  }
+}
+
+const fooddetail = function(){
+  return {
+    name:"凉拌尖椒皮蛋",
+    stuff:'尖椒',
+    description:'凉拌尖椒皮蛋',
+    attention:'',
+    price:25,
+    types:'',
+    images:[{
+      url:'http://pb1ftb8nx.bkt.clouddn.com/%E5%87%89%E6%8B%8C%E5%B0%96%E6%A4%92%E7%9A%AE%E8%9B%8B.jpg'
+    },{
+      url:'http://pb1ftb8nx.bkt.clouddn.com/%E7%B3%96%E9%86%8B%E9%B1%BC.jpg' 
+    }]
+  }
+}
+
+const editfood = function(){
+  return {
+    status:200
+  }
+}
 
 Mock.mock('/api/restaurants/info', 'get',  restaurant_info);
 Mock.mock('/api/restaurants/editinfo', 'post',  edit_restaurant_info );
@@ -392,3 +457,7 @@ Mock.mock('/api/qiniutoken', 'get',  upload_token );
 Mock.mock('/api/restaurants/addpics', 'post',  newPic);
 Mock.mock('/api/restaurants/getpics','get',get_restaurant_pics)
 Mock.mock('/api/restaurants/orders','get',get_orders);
+Mock.mock('/api/restaurants/menu','get',menu);
+Mock.mock('/api/restaurants/addfood','post',addfood);
+Mock.mock('/api/restaurants/fooddetail','get',fooddetail);
+Mock.mock('/api/restaurants/editfood','post',editfood);

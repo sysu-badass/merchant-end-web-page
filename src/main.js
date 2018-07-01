@@ -8,7 +8,7 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-default/index.css';    // 默认主题
 import VueLocalStorage from 'vue-localstorage'
 import './mock/mock'
-
+import store from "./store.js" 
 
 Vue.use(ElementUI,axios, VueLocalStorage);
 
@@ -19,6 +19,7 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

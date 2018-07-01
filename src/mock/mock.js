@@ -33,13 +33,13 @@ const newPic = function (){
 const get_restaurant_pics = function(){
   return{
     images:  [{
-      url:'http://pb1ftb8nx.bkt.clouddn.com/Fgq1LF09ZUtSDNWDS4Y-gGGIJ-a5'
+      url:'http://pb1ftb8nx.bkt.clouddn.com/%E7%8E%AF%E5%A2%831.jpg'
     },{
-      url:'http://pb1ftb8nx.bkt.clouddn.com/Fh6SftkItn2oewVGVntIax3xJ0m-'
+      url:'http://pb1ftb8nx.bkt.clouddn.com/%E7%8E%AF%E5%A2%832.jpg'
     },{
-      url:'http://pb1ftb8nx.bkt.clouddn.com/FmKogWIpetlSGmP0L7FpVRxw8Rjz'
+      url:'http://pb1ftb8nx.bkt.clouddn.com/%E7%8E%AF%E5%A2%833.jpg'
     },{
-      url:'http://pb1ftb8nx.bkt.clouddn.com/Fq_XLiLQ3UrO6tMdAEnNm56bHUTe'
+      url:'http://pb1ftb8nx.bkt.clouddn.com/%E7%8E%AF%E5%A2%834.jpg'
     }]
   }
 }
@@ -386,40 +386,82 @@ const get_orders = function(){
 
 const menu = function(){
   return [{
-    dishName:"凉拌尖椒皮蛋",
+    name:"凉拌尖椒皮蛋",
     price:25,
     monthlySales:10,
-    dishImage:'http://pb1ftb8nx.bkt.clouddn.com/%E5%87%89%E6%8B%8C%E5%B0%96%E6%A4%92%E7%9A%AE%E8%9B%8B.jpg'
+    images:[{
+      url:'http://pb1ftb8nx.bkt.clouddn.com/%E5%87%89%E6%8B%8C%E5%B0%96%E6%A4%92%E7%9A%AE%E8%9B%8B.jpg'
+    }],
+    stuff:'',
+    description:'',
+    attention:'',
+    type:'type1'
   },{
-    dishName:"梅菜扣肉",
+    name:"梅菜扣肉",
     price:25,
     monthlySales:7,
-    dishImage:'http://pb1ftb8nx.bkt.clouddn.com/%E6%A2%85%E8%8F%9C%E6%89%A3%E8%82%89.jpg'
+    images:[{
+      url:'http://pb1ftb8nx.bkt.clouddn.com/%E6%A2%85%E8%8F%9C%E6%89%A3%E8%82%89.jpg'
+    }],
+    stuff:'',
+    description:'',
+    attention:'',
+    type:'type2'
   },{
-    dishName:"锅包里脊",
+    name:"锅包里脊",
     price:45,
     monthlySales:3,
-    dishImage:'http://pb1ftb8nx.bkt.clouddn.com/%E9%94%85%E5%8C%85%E9%87%8C%E8%84%8A.jpeg'
+    images:[{
+      url:'http://pb1ftb8nx.bkt.clouddn.com/%E9%94%85%E5%8C%85%E9%87%8C%E8%84%8A.jpeg'
+    }],
+    stuff:'',
+    description:'',
+    attention:'',
+    type:'type3'
   },{
-    dishName:"酸菜鱼",
+    name:"酸菜鱼",
     price:50,
     monthlySales:50,
-    dishImage:'http://pb1ftb8nx.bkt.clouddn.com/%E9%85%B8%E8%8F%9C%E9%B1%BC.jpg'
+    images:[{
+      url:'http://pb1ftb8nx.bkt.clouddn.com/%E9%85%B8%E8%8F%9C%E9%B1%BC.jpg'
+    }],
+    stuff:'',
+    description:'',
+    attention:'',
+    type:'type4'
   },{
-    dishName:"麻婆豆腐",
+    name:"麻婆豆腐",
     price:50,
     monthlySales:30,
-    dishImage:'http://pb1ftb8nx.bkt.clouddn.com/%E9%BA%BB%E5%A9%86%E8%B1%86%E8%85%90.jpg'   
+    images:[{
+      url:'http://pb1ftb8nx.bkt.clouddn.com/%E9%BA%BB%E5%A9%86%E8%B1%86%E8%85%90.jpg'   
+    }],
+    stuff:'',
+    description:'',
+    attention:'',
+    type:'type5'
   },{
-    dishName:"糖醋鱼",
+    name:"糖醋鱼",
     price:50,
     monthlySales:30,
-    dishImage:'http://pb1ftb8nx.bkt.clouddn.com/%E7%B3%96%E9%86%8B%E9%B1%BC.jpg'   
+    images:[{
+      url:'http://pb1ftb8nx.bkt.clouddn.com/%E7%B3%96%E9%86%8B%E9%B1%BC.jpg'   
+    }],
+    stuff:'',
+    description:'',
+    attention:'',
+    type:'type6'
   },{
-    dishName:"回锅肉",
+    name:"回锅肉",
     price:50,
     monthlySales:30,
-    dishImage:'http://pb1ftb8nx.bkt.clouddn.com/%E5%9B%9E%E9%94%85%E8%82%89.jpg'
+    images:[{
+      url:'http://pb1ftb8nx.bkt.clouddn.com/%E5%9B%9E%E9%94%85%E8%82%89.jpg'
+    }],
+    stuff:'',
+    description:'',
+    attention:'',
+    type:'type6'
   }]
 }
 
@@ -451,6 +493,12 @@ const editfood = function(){
   }
 }
 
+const login = function(){
+  return {
+    status :200
+  }
+}
+
 Mock.mock('/api/restaurants/info', 'get',  restaurant_info);
 Mock.mock('/api/restaurants/editinfo', 'post',  edit_restaurant_info );
 Mock.mock('/api/qiniutoken', 'get',  upload_token );
@@ -461,3 +509,4 @@ Mock.mock('/api/restaurants/menu','get',menu);
 Mock.mock('/api/restaurants/addfood','post',addfood);
 Mock.mock('/api/restaurants/fooddetail','get',fooddetail);
 Mock.mock('/api/restaurants/editfood','post',editfood);
+Mock.mock('/api/login','post',editfood);

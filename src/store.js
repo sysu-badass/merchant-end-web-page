@@ -5,8 +5,10 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
     state: {
-        foods:[]
+        foods:[],
+        types:[]
     }
+
 })
 
 export default store

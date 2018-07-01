@@ -15,6 +15,9 @@
         components:{
             topbar
         },
+        created:function(){
+
+        },
         data(){
             return {
                 userInfo:{}
@@ -23,14 +26,8 @@
         methods:{
             test(){
                 alert(this.$store.state.count)
-                axios.get('/api/news').then(({data})=>{
-                    console.log(data);
-                    alert(data["userid"]);
-                    if(data.error === 0){
-                      this.userInfo = data.data;
-                    }else{
-                      this.userInfo = {};
-                    }
+                axios.get('http://127.0.0.1:5000').then(response=>{
+                    console.log(response)
                 })
             }
         }

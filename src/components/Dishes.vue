@@ -1,16 +1,16 @@
 <template>
     <div class="container">
         <topbar></topbar>
-        <!-- <el-select  style="padding:10px"  filterable placeholder="选择食品种类">
-          <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
-          </el-option>
-        </el-select> -->
+        <el-select v-model="chosentype" style="padding:10px"  filterable placeholder="选择食品种类">
+            <el-option
+            v-for="item in this.$store.state.types"
+            :key="item"
+            :label="item"
+            :value="item">
+            </el-option>
+        </el-select>
         <div :key="index" v-for="(item, index) in this.$store.state.foods">
-            <foodcard :info="item"></foodcard>
+            <foodcard :info="item" v-if="chosentype=='全部'||item.type==chosentype"></foodcard>
         </div>
         <div class="buttonholder">
             <el-button class="addfood" type="primary" circle @click="goAddFood">添加菜品</el-button>
@@ -29,40 +29,29 @@
         },
         created: function(){
             var self = this;
+            this.chosentype = '全部'
+            this.$store.state.types.push('全部')
             axios.get('/api/restaurants/menu')
             .then(response=>{
-                console.log(response.data);
-                // self.foods = response.data
                 this.$store.state.foods =response.data
-                console.log(this.foods.length)
+                for(var i =0 ; i < response.data.length ; i++){
+                    var current_type = response.data[i].type
+                    var alreadyexist = false
+                    for(var j = 0; j<this.$store.state.types.length ; j++){
+                        if(current_type == this.$store.state.types[j]){
+                            alreadyexist = true;
+                            break;
+                        }
+                    }
+                    if(!alreadyexist) this.$store.state.types.push(response.data[i].type)
+                }
+                console.log(this.$store.state.types)
             })
             .catch()
         },
         data(){
             return {
-               myinfo:{
-                   monthlySales:1,
-                   dishName:"炸鸡",
-                   dishImage:'../../static/img/chicken.jpg',
-                   price:25
-               },
-                foods:[],
-                options: [{
-                  value: '选项1',
-                  label: '选项1'
-                }, {
-                  value: '选项2',
-                  label: '选项2'
-                }, {
-                  value: '选项3',
-                  label: '选项3'
-                }, {
-                  value: '选项4',
-                  label: '选项4'
-                }, {
-                  value: '选项5',
-                  label: '选项5'
-                }],
+                chosentype:''
             }
         },
         methods: {

@@ -71,28 +71,32 @@
                 .catch()
             },
             login(formName) {
-                var self = this;
-                var bodyFormData = new FormData();
-                bodyFormData.set('username',this.$data.ruleForm['username']);
-                bodyFormData.set('password', this.$data.ruleForm['password']);            
-                axios({
-                    method: 'post',
-                    url: '/api/login',
-                    data: bodyFormData,
-                    config: { headers: {'Content-Type': 'multipart/form-data' }}                   
-                })
-                .then(function (response) {
-                    console.log(response);
-                    if(response.status==200){ // temporary, because API not finished yet, so don't know status code 
-                        self.getInfo();
-                        self.getqiniutoken();
-                        self.$router.push('/dashboard');
-                    }else{
-                        alert("something went wrong")
-                    }                    
-                })
-                .catch(function (error) {
-                  console.log(error);
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        var self = this;
+                        var bodyFormData = new FormData();
+                        bodyFormData.set('username',this.$data.ruleForm['username']);
+                        bodyFormData.set('password', this.$data.ruleForm['password']);            
+                        axios({
+                            method: 'post',
+                            url: '/api/login',
+                            data: bodyFormData,
+                            config: { headers: {'Content-Type': 'multipart/form-data' }}                   
+                        })
+                        .then(function (response) {
+                            console.log(response);
+                            if(response.status==200){ // temporary, because API not finished yet, so don't know status code 
+                                self.getInfo();
+                                self.getqiniutoken();
+                                self.$router.push('/dashboard');
+                            }else{
+                                alert("something went wrong")
+                            }                    
+                        })
+                        .catch(function (error) {
+                          console.log(error);
+                        });
+                  } 
                 });
             },
             goregister() {

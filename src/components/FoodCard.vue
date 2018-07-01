@@ -2,10 +2,10 @@
   <div class='card'>
     <div class='dish_content'>
       <el-card :body-style="{ padding: '0px' }">
-          <img :src='info.dishImage' class="image" height="180px" width="150px">
+          <img :src='info.images[0].url' class="image" height="180px" width="150px">
           <div style="padding-left: 5px">
             <div class="bottom clearfix">
-              <time class="data">名称: {{info.dishName}}</time>
+              <time class="data">名称: {{info.name}}</time>
             </div>
             <!-- <span>{{info.price}}</span> -->
             <div class="bottom clearfix">
@@ -33,7 +33,7 @@
     },
     methods: {
       detail(){
-        this.$router.push('/dishes/'+this.info.dishName)
+        this.$router.push('/dishes/'+this.info.name)
       }
     }
   }

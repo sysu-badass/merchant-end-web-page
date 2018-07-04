@@ -1,6 +1,5 @@
 <template>
     <div>
-        <topbar></topbar>
         <div class="e_content">
             易点单(Eorder)餐饮管理系统-商家端
             <el-button @click="test" >test</el-button>
@@ -9,12 +8,8 @@
 </template>
 
 <script>
-    import topbar from '@/components/Topbar'
     import axios from 'axios'
     export default{
-        components:{
-            topbar
-        },
         created:function(){
 
         },

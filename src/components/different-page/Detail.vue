@@ -61,13 +61,9 @@
 </template>
 
 <script>
-    import topbar from '@/components/Topbar'
-    import axios from '../router/http'
+    import axios from '../../router/http'
     
     export default{
-        components:{
-            topbar
-        },
         created: function(){
             var self =this 
             axios.get("/api/restaurants/fooddetail")

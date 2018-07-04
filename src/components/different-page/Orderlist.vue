@@ -1,6 +1,5 @@
 <template>
   <div class="fillcontain">
-    <topbar></topbar>
     	<div class="table_container">
 				<el-tabs v-model="activeName" @tab-click="handleClick">
     			<el-tab-pane label="新订单" name="new">新的订单</el-tab-pane>
@@ -84,12 +83,8 @@
 </template>
 
 <script>
-		import topbar from '@/components/Topbar'
-		import axios from '../router/http'
+		import axios from '../../router/http'
     export default{
-			components:{
-				topbar
-			},
 			created: function(){
 				axios.get('/api/restaurants/orders').then(response =>{
 					// console.log(response.data)

@@ -13,6 +13,7 @@ export default {
 <style>
   @import "../static/css/main.css";
   @import "../static/css/color-dark.css";  
+  
 /* #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

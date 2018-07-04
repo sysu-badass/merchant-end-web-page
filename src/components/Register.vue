@@ -28,14 +28,10 @@
 </template>
 
 <script>
-    import topbar from "@/components/Topbar"
     import axios from "axios"
 
     export default {
         name: 'register',
-        component:{
-            topbar
-        },
         data() {
             var validatePass = (rule, value, callback) => {
                 if (value === '') {
@@ -120,14 +116,6 @@
 </script>
 
 <style scoped>
-    .topbar{
-        position: relativ;
-        top:0;
-        width: 100%;
-        height: 100;
-        background: black;
-        z-index: 1000;   
-    }
     .el-button--primary{
         background-color: #FF8247;
         border:#FF8247;

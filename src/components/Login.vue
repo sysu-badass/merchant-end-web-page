@@ -22,7 +22,6 @@
 <script>
     import Vue from 'vue'
     import axios from '../router/http'
-    import topbar from '@/components/Topbar'
     
 
     export default {
@@ -109,14 +108,6 @@
 <style scoped>
     .el-form{
         font:white;
-    }
-    .topbar{
-        position: relativ;
-        top:0;
-        width: 100%;
-        height: 100;
-        background: black;
-        z-index: 1000;   
     }
     .el-button--primary{
         background-color: #FF8247;

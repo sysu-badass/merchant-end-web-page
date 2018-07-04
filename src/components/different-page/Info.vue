@@ -1,16 +1,14 @@
 <template>
-    <div class="container">
-        <topbar></topbar>
+    <div class="main_container">
         <header class="info-title">门店信息</header>
-        <div class="info-main">
+        <div class="info-form">
              <el-form ref="form" :model="form" label-width="80px">            
                 <el-form-item label="店内环境">
                     <div class="profile-pic" :key="index" v-if="item.url !==''"  v-for="(item, index) in images">
-                        <img :src="item.url" class="image">
+                        <img :src="item.url" class="restaurant_imgs">
                         <div v-if="!notEditing" class="edit"><el-button @click='removeImage(item,index)'>删除</el-button></div>
                     </div>
                     <el-upload
-                        class="uploadimage"
                         v-if="!notEditing"  
                         list-type="picture-card"            
                         action="https://upload-z2.qiniup.com"
@@ -55,8 +53,7 @@
 
 
 <script>
-    import topbar from '@/components/Topbar'
-    import axios from '../router/http'
+    import axios from '../../router/http'
 
     export default {
         data() {
@@ -160,39 +157,25 @@
                 // console.log(response.data)
                 this.$data.images =  response.data['images']
             }).catch()            
-        },
-        components:{
-            topbar
         }
     }
 </script>
 
 <style scoped>
-    .picbutton{
-        z-index: 9999;
-    }
-    .container{
-        /* background-color:yellow; */
+    .main_container{
         height: 100%;
-        overflow-y: scroll;
     }
-    /* .uploadimage{
-        height: 30px;
-        width: 30px;
-
-    } */
     .info-title{
         margin-top: 20px;
         text-align: center;
     }
-    .info-main{
+    .info-form{
         width: 60%;
-        /* background-color: #F9FAFC; */
         min-height: 400px;
         margin: 20px auto 0;
         border-radius: 10px;
     }
-    .image {
+    .restaurant_imgs {
         width: 145px;
         height: 145px;
         display: block;
@@ -200,15 +183,15 @@
         padding-right: 5px;
         border-radius: 10px;
     }
+
+    /* handle with remove button when editting*/
     .profile-pic {
 	position: relative;
 	display: inline-block;
     }
-
     .profile-pic:hover .edit {
     	display: block;
     }
-
     .edit {
     	padding-top: 7px;	
     	padding-right: 7px;
@@ -217,7 +200,6 @@
     	top: 0;
     	display: none;
     }
-
     .edit a {
     	color: #000;
     }

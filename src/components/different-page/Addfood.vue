@@ -1,6 +1,5 @@
 <template>
     <div>
-        <topbar></topbar>
         <div class="info-main">
             <el-form :model="form" :rules="rules" ref="form" label-width="80px">
                 <el-form-item prop="name" label="菜品名称" required>
@@ -57,13 +56,9 @@
 </template>
 
 <script>
-import topbar from '@/components/Topbar'
-import axios from '../router/http'
+import axios from '../../router/http'
 
 export default {
-    components:{
-        topbar
-    },
     data() {
         return {
             form: {

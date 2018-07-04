@@ -2,21 +2,22 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '@/components/Login'
 import Register from '@/components/Register'
-import Dashboard from '@/components/Dashboard' 
-// import Temp from '@/components/Temp' 
-// import Orderlist from '@/components/Orderlist'
-import Info from '@/components/Info'
-import Dishes from '@/components/Dishes'
-import QRCode from '@/components/QRCode'
-import Explain from '@/components/Explain'
-import Orderlist from '@/components/Orderlist'
-import addfood from '@/components/Addfood'
-import Detail from '@/components/Detail'
-
+import Info from '@/components/different-page/Info'
+import Dishes from '@/components/different-page/Dishes'
+import QRCode from '@/components/different-page/QRCode'
+import Explain from '@/components/different-page/Explain'
+import Orderlist from '@/components/different-page/Orderlist'
+import addfood from '@/components/different-page/Addfood'
+import Detail from '@/components/different-page/Detail'
+import layout from '@/components/common/Layout'
 
 Vue.use(Router)
 
 const routes = [{
+    path:'/test',
+    name:'test',
+    component:layout
+  },{
     path: '/',
     name: '/',
     redirect:'/dashboard'
@@ -34,7 +35,7 @@ const routes = [{
     meta:{
       requiresAuth: true
     },
-    component:Dashboard,
+    component:layout,
     children:[ {
         path:'',
         component: Info,

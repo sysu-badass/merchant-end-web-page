@@ -1,6 +1,5 @@
 <template>
     <div class="container">
-        <topbar></topbar>
         <el-select v-model="chosentype" style="padding:10px"  filterable placeholder="选择食品种类">
             <el-option
             v-for="item in this.$store.state.types"
@@ -19,13 +18,12 @@
 </template>
 
 <script>
-    import topbar from '@/components/Topbar'
-    import foodcard from '@/components/FoodCard'
-    import axios from '../router/http'
+    import foodcard from '@/components/common/FoodCard'
+    import axios from '../../router/http'
 
     export default{
         components:{
-            topbar,foodcard
+            foodcard
         },
         created: function(){
             var self = this;

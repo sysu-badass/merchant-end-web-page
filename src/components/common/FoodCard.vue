@@ -27,13 +27,11 @@
   export default {
     props: {
       info: {
-        type: Object,
-        default: {}
       }
     },
     methods: {
       detail(){
-        this.$router.push('/dishes/'+this.info.name)
+        this.$router.push('/menu/'+this.info.name)
       }
     }
   }

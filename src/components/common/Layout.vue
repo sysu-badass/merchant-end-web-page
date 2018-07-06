@@ -31,7 +31,7 @@
 }
 .siderbar{
 	min-height: 100%; 
-    background-color: #324057;
+  background-color: #324057;
 }
 .main-container{
     height: 100%;

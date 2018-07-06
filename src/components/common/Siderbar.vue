@@ -9,7 +9,7 @@
                 <i class="el-icon-menu"></i>
                 <span slot="title">订单管理</span>
 			</el-menu-item>
-            <el-menu-item index="/dishes">
+            <el-menu-item index="/menu">
                 <i class="el-icon-menu"></i>
                 <span slot="title">菜品管理</span>
 			</el-menu-item>

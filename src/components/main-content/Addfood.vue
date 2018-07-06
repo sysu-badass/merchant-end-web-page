@@ -111,7 +111,6 @@ export default {
     handleSuccess(res,file){
       console.log( 'http://pb1ftb8nx.bkt.clouddn.com/'+ res.key)
       this.form.images.push({url: 'http://pb1ftb8nx.bkt.clouddn.com/'+ res.key})
-      // console.log(this.form)
     },
     newCategory() {
       var self = this;
@@ -147,14 +146,8 @@ export default {
         if (valid) {
           addFood(this.$data.form)
           .then(response=>{
-            self.$store.dispatch("addFood",{name:self.$data.form['name'],
-                                            stuff:self.$data.form['stuff'],
-                                            description:self.$data.form['description'],
-                                            attention:self.$data.form['attention'],
-                                            price:self.$data.form['price'],
-                                            type:self.$data.form['type'],
-                                            images:images,
-                                            monthlySales:0});
+            self.$store.dispatch("addFood", this.$data.form);
+            self.$destroy();
             self.$router.push('/menu')
           }).catch()  
         } 

@@ -6,7 +6,7 @@
 			</el-col>
 			<el-col :span="20"  class="main-container" >
                 <topbar></topbar>
-				<keep-alive>
+				<keep-alive exclude="addfood">
 				    <router-view></router-view>
 				</keep-alive>					
 			</el-col>

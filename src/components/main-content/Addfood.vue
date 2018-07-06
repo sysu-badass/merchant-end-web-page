@@ -142,11 +142,19 @@ export default {
     },
     submitForm(form){
       var self = this;
+      var images = self.$data.form['images'];
       this.$refs[form].validate((valid) => {
         if (valid) {
           addFood(this.$data.form)
           .then(response=>{
-            self.$store.dispatch("addFood",this.$data.form);
+            self.$store.dispatch("addFood",{name:self.$data.form['name'],
+                                            stuff:self.$data.form['stuff'],
+                                            description:self.$data.form['description'],
+                                            attention:self.$data.form['attention'],
+                                            price:self.$data.form['price'],
+                                            type:self.$data.form['type'],
+                                            images:images,
+                                            monthlySales:0});
             self.$router.push('/menu')
           }).catch()  
         } 

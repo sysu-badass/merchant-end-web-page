@@ -16,7 +16,6 @@ const store = new Vuex.Store({
       for(var i = 0;i<menu.length;i++){
         state.foods.push(menu[i])
       }
-      // console.log(state.foods)
     },
 
     ADD_FOOD(state,newfood){
@@ -24,7 +23,6 @@ const store = new Vuex.Store({
       if(state.types.indexOf(newfood.type) == -1){
         state.types.push(newfood.type);
       }
-      // console.log(state.foods)
     },
 
     INIT_TYPES(state,menu){

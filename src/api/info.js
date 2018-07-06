@@ -1,18 +1,18 @@
 import axios from '../router/http'
 
-export function getInfo() {
+export function getInfo(restaurant_id) {
   return axios({
-    url:"/api/restaurants/info",
+    url:'/api/restaurants/'+ restaurant_id +'/settings',
     method: "get",
   })
 };
 
-export function updateInfo(form){  
+export function updateInfo(restaurant_id,form){  
   return axios({
-    method: 'post',
-    url: '/api/restaurants/editinfo',
+    method: 'put',
+    url: '/api/restaurants/'+ restaurant_id +'/settings',
     data: form,
-    config: { headers: {'Content-Type': 'multipart/form-data' }}                   
+    config: { headers: {'Content-Type': 'applicaton/json' }}                   
   })
 }
 

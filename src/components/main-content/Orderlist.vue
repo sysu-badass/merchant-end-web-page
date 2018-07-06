@@ -82,9 +82,13 @@
 
 <script>
 import axios from '../../router/http'
+import {getOrders} from "../../api/orders"
+
 export default{
   created: function(){
-		axios.get('/api/restaurants/orders').then(response =>{
+    var self = this;
+		getOrders().then(response =>{
+      self.$store.dispatch("getOrders",response.data);
 			this.tableData = response.data
 			for(var i = 0;i < this.tableData.length;i++){
 				if(this.tableData[i].status == 'new'){

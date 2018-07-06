@@ -7,10 +7,16 @@ const store = new Vuex.Store({
   state: {
     RestaurantInfo:[],
     foods:[],
-    types:["全部"]
+    types:["全部"],
+    orders:[]
   },
 
   mutations:{
+    GET_INFO(state, info){
+      console.log("mutation GET_INFO")
+      state.RestaurantInfo = info;
+      console.log(state.RestaurantInfo)
+    },
     GET_MENU(state, menu){
       console.log("mutation GET_MENU")
       for(var i = 0;i<menu.length;i++){
@@ -32,19 +38,33 @@ const store = new Vuex.Store({
         if(state.types.indexOf(current_type) == -1){
           state.types.push(menu[i].type)
         }
-      }      
+      }   
       console.log(state.types)
+    },
+
+    GET_ORDERS(state,orders){
+      for(var i = 0 ;i< orders.length;i++){
+        state.orders.push(orders[i]);
+      }
     }
+
+
   },
   actions:{
+    getInfo({commit},info){
+      commit("GET_INFO",info);
+    },
     getMenu({commit},menu){
-      commit("GET_MENU",menu)
+      commit("GET_MENU",menu);
     },
     addFood({commit},newfood){
-      commit("ADD_FOOD",newfood)
+      commit("ADD_FOOD",newfood);
     },
     initTypes({commit},menu){
-      commit("INIT_TYPES",menu)
+      commit("INIT_TYPES",menu);
+    },
+    getOrders({commit},orders){
+      commit("GET_ORDERS",orders);
     }
   }
 });

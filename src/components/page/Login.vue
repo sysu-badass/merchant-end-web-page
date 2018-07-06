@@ -33,7 +33,7 @@
         return {
           ruleForm: {
             phonenumber: '',
-            password: '',                 
+            password: ''                
           },
           rules: {
             phonenumber: [
@@ -53,16 +53,21 @@
               login(this.$data.ruleForm)
               .then(res=>{
                 console.log(res.data)
-                if(res.data.status == 200){
-                  this.$message({
-	                    type: 'success',
-	                    message: '登录成功'
+                if(res.status == 200){
+                  self.$message({
+	                  type: 'success',
+	                  message: '登录成功'
                   });
+                  // self.$store.state.restaurant_id=Number(this.$data.ruleForm['phonenumber']);
+                  window.localStorage.setItem('restaurant_id',this.$data.ruleForm['phonenumber'])
+                  console.log(window.localStorage.getItem('restaurant_id'))
                   self.$router.push('/dashboard')
-                }else{
-                  console.log("something went wrong")
                 }
               }).catch(error=>{
+                  self.$message({
+	                  type: 'error',
+	                  message: '登录失败'
+                  });
                 console.log(error)
               })
             }

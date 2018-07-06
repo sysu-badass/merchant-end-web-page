@@ -28,20 +28,21 @@
                     <el-input :disabled="notEditing" v-model="form.name"></el-input>
                 </el-form-item>
                 <el-form-item label="简介">
-                    <el-input :disabled="notEditing" v-model="form.description"></el-input>
+                    <el-input :disabled="notEditing" v-model="form.information"></el-input>
                 </el-form-item>
                 <el-form-item label="地址">
                     <el-input :disabled="notEditing" v-model="form.address"></el-input>
                 </el-form-item>
                 <el-form-item label="手机号">
-                    <el-input :disabled="notEditing" v-model="form.phone"></el-input>
+                    <el-input :disabled="notEditing" v-model="form.phone_number"></el-input>
                 </el-form-item>
                 <el-form-item label="营业时间">
-                    <el-input :disabled="notEditing" v-model="form.opentime"></el-input>
+                    <el-input :disabled="notEditing" v-model="form.open_time"></el-input>
                 </el-form-item>
                 <el-form-item label="店铺公告">
-                    <el-input :disabled="notEditing" type='textarea' v-model="form.notification"></el-input>
+                    <el-input :disabled="notEditing" type='textarea' v-model="form.bulletin"></el-input>
                 </el-form-item>
+                
                 <el-form-item >
                     <el-button icon="el-icon-edit" @click="editInfo">{{ buttonmsg}}</el-button> 
                 </el-form-item>
@@ -58,8 +59,9 @@ import {getInfo, updateInfo, getQiniuToken } from '../../api/info'
 export default {
   created: function(){
     var self = this;
-    getInfo().then(res=>{
-      this.$store.state.RestaurantInfo = res.data;
+    getInfo(window.localStorage.getItem('restaurant_id')).then(res=>{
+      self.$store.dispatch("getInfo",res.data);
+      self.$data.form = self.$store.state.RestaurantInfo
     });
     getQiniuToken().then(response=>{
       console.log(response.data)
@@ -70,11 +72,12 @@ export default {
     return {
       form: {
         name: this.$store.state.RestaurantInfo.name,
-        description: this.$store.state.RestaurantInfo.description,
+        information: this.$store.state.RestaurantInfo.information,
         address: this.$store.state.RestaurantInfo.address,
-        phone: this.$store.state.RestaurantInfo.phone,
-        notification: this.$store.state.RestaurantInfo.notification,
-        opentime:this.$store.state.RestaurantInfo.opentime,
+        phone_number: this.$store.state.RestaurantInfo.phone_number,
+        bulletin: this.$store.state.RestaurantInfo.bulletin,
+        open_time:this.$store.state.RestaurantInfo.open_time,
+        user_id:"9527"
       },
       notEditing:true,
       buttonmsg:'修改',
@@ -98,22 +101,24 @@ export default {
         for( var i =0;i< this.added_images.length ; i++){
           self.images.push(this.added_images.pop())
         }  
-      updateInfo(this.$data.form)
+      updateInfo(window.localStorage.getItem('restaurant_id'), this.$data.form)
       .then(response=>{
-        if(response.data['status']=='200'){
+        if(response.status == 200){
           this.$message({
 	          type: 'success',
 	          message: '修改成功'
           });
-        }else{
+        }
+        self.$data.buttonmsg="修改";
+      })
+      .catch(err=>{
           this.$message({
 	          type: 'error',
 	          message: '修改失败，请稍后再试'
           });
-        } 
+        console.log(err);
         self.$data.buttonmsg="修改";
       })
-      .catch()
       }
     },
     handleRemove(file, fileList) {

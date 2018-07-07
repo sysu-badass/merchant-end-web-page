@@ -12,10 +12,8 @@ import store from "./store";
 // import VueSocketio from "vue-socket.io";
 
 Vue.use(ElementUI,axios, VueLocalStorage);
-// Vue.use(VueSocketio, socketio('http://127.0.0.1:5000'), store);
 
 Vue.config.productionTip = false;
-
 
 /* eslint-disable no-new */
 new Vue({

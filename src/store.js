@@ -13,13 +13,10 @@ const store = new Vuex.Store({
 
   mutations:{
     GET_INFO(state, info){
-      // console.log("mutation GET_INFO");
       state.RestaurantInfo = info;
       console.log(state.RestaurantInfo);
     },
     GET_MENU(state, menu){
-      // console.log("mutation GET_MENU");
-      // console.log(menu);
       state.foods = [];
       for(var i = 0;i<menu.length;i++){
         state.foods.push(menu[i])
@@ -42,19 +39,21 @@ const store = new Vuex.Store({
     EDIT_FOOD(state, payload){
       for(var i =0;i < state.foods.length;i++){
         if(payload.food_id == state.foods[i].food_id){
-           console.log(payload.food_id , state.foods[i].id)
            state.foods[i].name = payload.data.name;
            state.foods[i].description = payload.data.description
            state.foods[i].price = payload.data.price
            state.foods[i].image = payload.data.image
            state.foods[i].food_type = payload.data.food_type
+           if(state.types.indexOf(payload.data.food_type) == -1){
+            state.types.push(payload.data.food_type)
+           }
            state.foods[i].available  = payload.data.available
+           break;
         }
-      }
+      } 
     },
 
     INIT_TYPES(state,menu){
-      // console.log("mutation INIT_TYPES")
       for(var i =0 ; i < menu.length ; i++){
         var current_type = menu[i].food_type;
         if(state.types.indexOf(current_type) == -1){

@@ -42,8 +42,7 @@ export function editFood(restaurant_id, food_id,form){
     available: form['available'],
     restaurant_id:Number(restaurant_id)
   };
-  console.log(data.image)
-  // console.log({foods:[data]})
+  console.log({foods:[data]})
   return axios({
     method: 'put',
     url: '/api/restaurants/'+ restaurant_id +'/menu/' +food_id,

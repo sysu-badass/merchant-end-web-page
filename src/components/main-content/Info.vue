@@ -148,44 +148,44 @@ export default {
 </script>
 
 <style scoped>
-  .main_container{
-      height: 100%;
-  }
-  .info-title{
-      margin-top: 20px;
-      text-align: center;
-  }
-  .info-form{
-      width: 60%;
-      min-height: 400px;
-      margin: 20px auto 0;
-      border-radius: 10px;
-  }
-  .restaurant_imgs {
-      width: 145px;
-      height: 145px;
-      display: block;
-      float: left;
-      padding-right: 5px;
-      border-radius: 10px;
-  }
-  /* handle with remove button when editting*/
-  .profile-pic {
-	position: relative;
-	display: inline-block;
-  }
-  .profile-pic:hover .edit {
-  	display: block;
-  }
-  .edit {
-  	padding-top: 7px;	
-  	padding-right: 7px;
-  	position: absolute;
-  	right: 0;
-  	top: 0;
-  	display: none;
-  }
-  .edit a {
-  	color: #000;
-  }
+.main_container{
+  height: 100%;
+}
+.info-title{
+  margin-top: 20px;
+  text-align: center;
+}
+.info-form{
+  width: 60%;
+  min-height: 400px;
+  margin: 20px auto 0;
+  border-radius: 10px;
+}
+.restaurant_imgs {
+  width: 145px;
+  height: 145px;
+  display: block;
+  float: left;
+  padding-right: 5px;
+  border-radius: 10px;
+}
+/* handle with remove button when editting*/
+.profile-pic {
+position: relative;
+display: inline-block;
+}
+.profile-pic:hover .edit {
+	display: block;
+}
+.edit {
+	padding-top: 7px;	
+	padding-right: 7px;
+	position: absolute;
+	right: 0;
+	top: 0;
+	display: none;
+}
+.edit a {
+	color: #000;
+}
 </style>

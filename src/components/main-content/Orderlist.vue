@@ -1,7 +1,7 @@
 <template>
   <div class="fillcontain">
     <div class="table_container">
-			<el-tabs v-model="activeName" @tab-click="handleClick">
+			<el-tabs v-model="activeName" @tab-click="switchTab">
     		<el-tab-pane label="新订单" name="new">新的订单</el-tab-pane>
     		<el-tab-pane label="准备中" name="processing">准备中订单</el-tab-pane>
     		<el-tab-pane label="已完成" name="finished">已完成订单</el-tab-pane>
@@ -87,19 +87,23 @@ import {getOrders} from "../../api/orders"
 export default{
   created: function(){
     var self = this;
-		getOrders().then(response =>{
-      self.$store.dispatch("getOrders",response.data);
-			this.tableData = response.data
-			for(var i = 0;i < this.tableData.length;i++){
-				if(this.tableData[i].status == 'new'){
-					this.showData.push(this.tableData[i])
-				}
-			}
-			for(var i =0; i<this.showData.length && i<this.page_size; i++){
-				this.current_page_data.push(this.showData[i])
-			}
-			this.count = this.showData.length
-		}).catch()
+    getOrders(window.localStorage.getItem('restaurant_id'))
+      .then(response =>{
+          if(response.status == 200){
+            self.$store.dispatch("getOrders",response.data);
+			      this.tableData = response.data
+			      for(var i = 0;i < this.tableData.length;i++){
+			      	if(this.tableData[i].status == 'new'){
+			      		this.showData.push(this.tableData[i])
+			      	}
+			      }
+		  	    for(var i =0; i<this.showData.length && i<this.page_size; i++){
+		  	    	this.current_page_data.push(this.showData[i])
+            }
+		  	    this.count = this.showData.length
+        }
+      })
+      .catch()
 	},
 	methods:{
 		handleAccept(a,b){
@@ -197,7 +201,7 @@ export default{
 			}
 			this.count = this.showData.length
 		},
-		handleClick(a,b){
+		switchTab(a,b){
 			// console.log(this.activeName)
 			this.current_page =1;
 			while(this.showData.length != 0 ){
@@ -241,23 +245,22 @@ export default{
 
 
 <style>
-	.fillcontain{
-		height: 100%;
-		/* overflow-y: scroll; */
-	}
-  .table_container{
-    padding: 20px;
-  }
-  .demo-table-expand {
-	  font-size: 0;
-	}
-	.demo-table-expand label {
-	  width: 90px;
-	  color: #99a9bf;
-	}
-	.demo-table-expand .el-form-item {
-	  margin-right: 0;
-	  margin-bottom: 0;
-	  width: 50%;
-	}
+.fillcontain{
+	height: 100%;
+}
+.table_container{
+  padding: 20px;
+}
+.demo-table-expand {
+  font-size: 0;
+}
+.demo-table-expand label {
+  width: 90px;
+  color: #99a9bf;
+}
+.demo-table-expand .el-form-item {
+  margin-right: 0;
+  margin-bottom: 0;
+  width: 50%;
+}
 </style>

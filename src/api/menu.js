@@ -14,6 +14,7 @@ export function addFood(restaurant_id,form){
     available: form['available'],
     restaurant_id:Number(restaurant_id)
   };
+  console.log(data)
   return axios({
     method: 'post',
     url: '/api/restaurants/'+ restaurant_id +'/menu',

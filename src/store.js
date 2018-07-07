@@ -47,6 +47,16 @@ const store = new Vuex.Store({
       for(var i = 0 ;i< orders.length;i++){
         state.orders.push(orders[i]);
       }
+    },
+    CLEAR(state){
+      // while(state.RestaurantInfo.length != 0 ) state.RestaurantInfo.splice(0,1);
+      // while(state.foods.length != 0 ) state.foods.splice(0,1);
+      // while(state.orders.length != 0 ) state.orders.splice(0,1);
+      // while(state.types.length != 0 ) state.types.splice(0,1);
+      state.RestaurantInfo=[];
+      state.foods =[];
+      state.orders=[];
+      state.types=['全部'];
     }
 
 
@@ -66,6 +76,9 @@ const store = new Vuex.Store({
     },
     getOrders({commit},orders){
       commit("GET_ORDERS",orders);
+    },
+    clearWhenExit({commit}){
+      commit("CLEAR");
     }
   }
 });

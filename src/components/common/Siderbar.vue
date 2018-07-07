@@ -31,12 +31,14 @@
 
 <script>
 export default{
-    methods:{
-        logout(){
-			window.localStorage.removeItem("access_token")
-			window.localStorage.removeItem("imageToken")
-            this.$router.push('/login')
-        }
+  methods:{
+    logout(){
+		  // window.localStorage.removeItem("access_token")
+      // window.localStorage.removeItem("imageToken")
+      this.$store.dispatch("clearWhenExit")
+      window.localStorage.removeItem('restaurant_id')
+      this.$router.push('/login')
     }
+  }
 }
 </script>

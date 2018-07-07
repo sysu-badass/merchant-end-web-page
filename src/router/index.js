@@ -107,7 +107,7 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-  let token = window.localStorage.getItem("access_token");
+  let token = window.localStorage.getItem("restaurant_id");
   if (to.meta.requiresAuth) {
     if(!token || token === undefined){
       next({

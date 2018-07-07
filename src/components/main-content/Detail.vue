@@ -44,6 +44,7 @@
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" circle @click="edit(form)">{{buttonmsg}}</el-button>
+                    <el-button v-if="!notEditing" type="primary" circle @click="remvoe(form)">删除菜品</el-button>
                 </el-form-item>
             </el-form>
 
@@ -94,8 +95,9 @@ export default{
       added_images:[],
       dialogImageUrl: '',
       dialogVisible: false,
-      notEditing:true,
+      notEditing: true,
       buttonmsg:"编辑",
+
       postData:{
         token: window.localStorage.getItem('imageToken')
       }
@@ -132,14 +134,21 @@ export default{
           if (valid) {
             editFood(this.$data.form)
             .then(response=>{
-              if(response.data['status']=='200'){
-                alert("修改成功")
-              }else{
-                alert("修改失败，请稍后再试！")
-              } 
-               self.$data.buttonmsg="编辑";
+              if(response.data.status==200){
+                self.$message({
+	                type: 'success',
+	                message: '修改成功'
+                });
+              }
+              self.$data.buttonmsg="编辑";
             })
-            .catch()
+            .catch(err=>{
+              self.$message({
+	              type: 'error',
+	              message: '修改失败，请过后再尝试'
+              });   
+              self.$data.buttonmsg="编辑";            
+            })
           }
         })
       }

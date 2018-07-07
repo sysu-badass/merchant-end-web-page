@@ -93,16 +93,17 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           register(this.$data.ruleForm)
-          .then(function (response) {
+          .then(response=> {
             if(response.status ==200){
               this.$message({
 	                type: 'success',
-	                message: '注册成功，现自动登录'
+	                message: '注册成功，请登录'
               });
-              self.$router.push('/dashboard');             
+              // window.localStorage.setItem('restaurant_id', this.$data.ruleForm['phone'])
+              self.$router.push('/login');             
             }
           })
-          .catch(function (error) {
+          .catch(error => {
             console.log(error);
           });              
         }

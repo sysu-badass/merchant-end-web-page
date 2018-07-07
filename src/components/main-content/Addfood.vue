@@ -111,6 +111,8 @@ export default {
           break;
         }
       }
+      this.form.image=""
+
     },
     handleSuccess(res,file){
       // console.log( 'http://pb1ftb8nx.bkt.clouddn.com/'+ res.key)
@@ -148,6 +150,7 @@ export default {
       var self = this;
       this.$refs[form].validate((valid) => {
         if (valid) {
+          // console.log(this.$data.form)
           addFood(window.localStorage.getItem('restaurant_id'),this.$data.form)
           .then(response=>{
             var a = response.data.URL.split('/')

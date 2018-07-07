@@ -18,7 +18,7 @@ axios.interceptors.request.use(config => {
 // http response 拦截器 
 axios.interceptors.response.use(
   response => {
-    if(response["status"]==200){
+    if(response.status==200){
       window.localStorage.setItem("access_token",response.data["access_token"]);
       window.localStorage.setItem("refresh_token",response.data["refresh_token"]);
     }

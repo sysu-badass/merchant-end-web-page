@@ -60,7 +60,7 @@
                   });
                   // self.$store.state.restaurant_id=Number(this.$data.ruleForm['phonenumber']);
                   window.localStorage.setItem('restaurant_id',this.$data.ruleForm['phonenumber'])
-                  console.log(window.localStorage.getItem('restaurant_id'))
+                  console.log("loged in as " + window.localStorage.getItem('restaurant_id'))
                   self.$router.push('/dashboard')
                 }
               }).catch(error=>{

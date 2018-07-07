@@ -9,7 +9,7 @@
       </el-option>
     </el-select>
     <div :key="index" v-for="(item, index) in this.$store.state.foods">
-      <foodcard :info="item" v-if="chosentype=='全部'||item.type==chosentype"></foodcard>
+      <foodcard :info="item" v-if="chosentype=='全部'||item.food_type==chosentype"></foodcard>
     </div>
     <div class="buttonholder">
       <el-button class="addfood" type="primary" circle @click="goAddFood">添加菜品</el-button>
@@ -25,10 +25,11 @@ import {getMenu} from '../../api/menu'
 export default{
   created: function(){
     var self = this;
-    getMenu( this.$store.state.RestaurantInfo.phone)
+    getMenu( window.localStorage.getItem('restaurant_id'))
     .then(response=>{
-      self.$store.dispatch("getMenu",response.data);
-      self.$store.dispatch("initTypes",response.data);
+      // console.log(response.data.foods)
+      self.$store.dispatch("getMenu",response.data.foods);
+      self.$store.dispatch("initTypes",response.data.foods);
     })
     .catch(error=>{
       console.log("获取菜品失败")

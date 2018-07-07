@@ -2,12 +2,11 @@
   <div class='card'>
     <div class='dish_content'>
       <el-card :body-style="{ padding: '0px' }">
-          <img :src='info.images[0].url' class="image" height="180px" width="150px">
+          <img :src='imageurl' class="image" height="180px" width="150px">
           <div style="padding-left: 5px">
             <div class="bottom clearfix">
               <time class="data">名称: {{info.name}}</time>
             </div>
-            <!-- <span>{{info.price}}</span> -->
             <div class="bottom clearfix">
               <time class="data">价格: {{info.price}}</time>
             </div>
@@ -26,12 +25,22 @@
 <script>
   export default {
     props: {
-      info: {
-      }
+      info: {}
     },
     methods: {
       detail(){
-        this.$router.push('/menu/'+this.info.name)
+        this.$router.push('/menu/'+this.info.food_id)
+      }
+    },
+    computed:{
+      imageurl:function(){
+        if(this.$props.info.image != ""){
+          // console.log(this.$props.info.image)
+          return this.$props.info.image
+        }else{
+          // console.log("temp image")
+          return "http://pb1ftb8nx.bkt.clouddn.com/wutu.jpg"
+        }
       }
     }
   }

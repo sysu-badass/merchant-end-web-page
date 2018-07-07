@@ -13,12 +13,13 @@ const store = new Vuex.Store({
 
   mutations:{
     GET_INFO(state, info){
-      console.log("mutation GET_INFO")
+      // console.log("mutation GET_INFO");
       state.RestaurantInfo = info;
-      console.log(state.RestaurantInfo)
+      console.log(state.RestaurantInfo);
     },
     GET_MENU(state, menu){
-      console.log("mutation GET_MENU")
+      // console.log("mutation GET_MENU");
+      // console.log(menu);
       for(var i = 0;i<menu.length;i++){
         state.foods.push(menu[i])
       }
@@ -26,17 +27,17 @@ const store = new Vuex.Store({
 
     ADD_FOOD(state,newfood){
       state.foods.push(newfood)
-      if(state.types.indexOf(newfood.type) == -1){
-        state.types.push(newfood.type);
+      if(state.types.indexOf(newfood.food_type) == -1){
+        state.types.push(newfood.food_type);
       }
     },
 
     INIT_TYPES(state,menu){
-      console.log("mutation INIT_TYPES")
+      // console.log("mutation INIT_TYPES")
       for(var i =0 ; i < menu.length ; i++){
-        var current_type = menu[i].type;
+        var current_type = menu[i].food_type;
         if(state.types.indexOf(current_type) == -1){
-          state.types.push(menu[i].type)
+          state.types.push(menu[i].food_type)
         }
       }   
       console.log(state.types)

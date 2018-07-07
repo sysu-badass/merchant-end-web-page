@@ -5,20 +5,20 @@
                 <el-form-item prop="name" label="菜品名称" required>
                     <el-input v-model="form.name"></el-input>
                 </el-form-item>
-                <el-form-item prop="stuff" label="原料">
+                <!-- <el-form-item prop="stuff" label="原料">
                     <el-input type='textarea' v-model="form.stuff"></el-input>
-                </el-form-item>
+                </el-form-item> -->
                 <el-form-item prop="description" label="描述">
                     <el-input type='textarea' v-model="form.description"></el-input>
                 </el-form-item>
-                <el-form-item prop="attention" label="注意事项">
+                <!-- <el-form-item prop="attention" label="注意事项">
                     <el-input type='textarea' v-model="form.attention"></el-input>
-                </el-form-item>
+                </el-form-item> -->
                 <el-form-item prop="price" label="价格" required>
                     <el-input v-model="form.price"></el-input>
                 </el-form-item>
                 <el-form-item prop='type' label="选择分类">
-                    <el-select v-model="form.type" filterable placeholder="食品分类">
+                    <el-select v-model="form.food_type" filterable placeholder="食品分类">
                       <el-option
                         v-for="item in this.$store.state.types.filter(type=>type!='全部')"
                         :key="item"
@@ -69,14 +69,18 @@ export default {
   data() {
     return {
       form: {
+        food_id:'',
         name: '',
         stuff: '',
         description: '',
         monthlySales:0,
         attention: '',
-        price:'',
+        price:"",
         images:[],
-        type:''
+        image:'',
+        food_type:'',
+        available:"True",
+        restaurant_id: window.localStorage.getItem('restaurant_id')
       },
       rules: {
         name: [
@@ -101,7 +105,7 @@ export default {
     },
     handleRemove(file, fileList){
       for(var i =0;i<this.form.images.length;i++){
-        console.log(this.form.images[i].url)
+        // console.log(this.form.images[i].url)
         if(this.form.images[i].url=="http://pb1ftb8nx.bkt.clouddn.com/"+file.response.key){
           this.form.images.splice(i,1)
           break;
@@ -109,8 +113,9 @@ export default {
       }
     },
     handleSuccess(res,file){
-      console.log( 'http://pb1ftb8nx.bkt.clouddn.com/'+ res.key)
-      this.form.images.push({url: 'http://pb1ftb8nx.bkt.clouddn.com/'+ res.key})
+      // console.log( 'http://pb1ftb8nx.bkt.clouddn.com/'+ res.key)
+      // this.form.images.push({url: 'http://pb1ftb8nx.bkt.clouddn.com/'+ res.key})
+      this.form.image = 'http://pb1ftb8nx.bkt.clouddn.com/'+ res.key;
     },
     newCategory() {
       var self = this;
@@ -120,7 +125,7 @@ export default {
       }).
       then(({ value }) => {
         if(this.$store.state.types.indexOf(value) == -1){
-          self.form.type = value;
+          self.form.food_type = value;
           this.$message({
             type: 'success',
             message: '新建分类: ' + value
@@ -141,15 +146,20 @@ export default {
     },
     submitForm(form){
       var self = this;
-      var images = self.$data.form['images'];
       this.$refs[form].validate((valid) => {
         if (valid) {
-          addFood(this.$data.form)
+          addFood(window.localStorage.getItem('restaurant_id'),this.$data.form)
           .then(response=>{
-            self.$store.dispatch("addFood", this.$data.form);
+            var a = response.data.URL.split('/')
+            // console.log(a)
+            // console.log(a[a.length-1])
+            this.$data.form['food_id'] = a[a.length-1]
+            self.$store.dispatch("addFood",  this.$data.form);
             self.$destroy();
             self.$router.push('/menu')
-          }).catch()  
+          }).catch(error=>{
+            console.log(error)
+          })  
         } 
       });     
     }

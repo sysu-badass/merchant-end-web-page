@@ -83,13 +83,20 @@ const routes = [{
       requiresAuth: true
     }
   },{
-    path:"/menu/:dishname",
+    path:"/menu/:food_id",
     component:Detail , 
     meta:{
       requiresAuth: true
-    }   
+    }
+    // beforeRouteEnter (to, from, next) {
+    //   console.log(this);  //undefined，不能用this来获取vue实例
+    //   console.log('组件路由钩子：beforeRouteEnter');
+    //   next(vm => {
+    //     console.log(vm);  //vm为vue的实例
+    //     console.log('组件路由钩子beforeRouteEnter的next');
+    //   });
+    // }
   }        
- 
   ]
 }
 ];

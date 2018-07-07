@@ -5,22 +5,16 @@
                 <el-form-item label="菜品名称">
                     <el-input :disabled="notEditing" v-model="form.name"></el-input>
                 </el-form-item>
-                <el-form-item label="原料">
-                    <el-input :disabled="notEditing" type='textarea' v-model="form.stuff"></el-input>
-                </el-form-item>
                 <el-form-item label="描述">
                     <el-input :disabled="notEditing" type='textarea' v-model="form.description"></el-input>
-                </el-form-item>
-                <el-form-item label="注意事项">
-                    <el-input :disabled="notEditing" type='textarea' v-model="form.attention"></el-input>
                 </el-form-item>
                 <el-form-item label="价格">
                     <el-input :disabled="notEditing" v-model="form.price"></el-input>
                 </el-form-item>
                 <el-form-item label="选择分类">
-                    <el-select :disabled="notEditing" v-model="form.types" filterable placeholder="食品分类">
+                    <el-select :disabled="notEditing" v-model="form.food_type" filterable placeholder="食品分类">
                       <el-option
-                        v-for="item in form.types"
+                        v-for="item in this.$store.state.types.filter(type=>type!='全部')"
                         :key="item.value"
                         :label="item.label"
                         :value="item.value">
@@ -60,27 +54,30 @@
 
 <script>
 import axios from '../../router/http'
-import {editFood} from '../../api/menu'
+import { getFoodDetail, editFood} from '../../api/menu'
 import {getQiniuToken} from '../../api/info'
 
 export default{
   created: function(){
-      var self =this 
-      axios.get("/api/restaurants/fooddetail")
-      .then(response=>{
-          self.form = response.data
-      }).catch()
+      var self =this;
+      this.fetchData();
+  },
+  watch: {
+    '$route': function(to, from) {
+      if(/^\/menu\/[0-9]*$/.test(to.path)){
+        this.fetchData()
+      }
+    }
   },
   data() {
     return {
       form: {
         name: '',
-        stuff: '',
         description: '',
-        attention: '',
         price:'',
-        type:'',
+        food_type:'',
         images:[],
+        image:"",
         monthlySales:0,
       },
       rules: {
@@ -105,6 +102,23 @@ export default{
     }
   },
   methods:{
+    fetchData(){
+      var self = this;
+      getFoodDetail(window.localStorage.getItem('restaurant_id'), this.$route.params.food_id)
+      .then(response=>{
+        console.log(response.data.foods[0]);
+        this.form.name = response.data.foods[0].name;
+        this.form.description = response.data.foods[0].description;
+        this.form.price = response.data.foods[0].price;
+        this.form.food_type = response.data.foods[0].food_type;
+        this.form.images.push({url:response.data.foods[0].image});
+      }).catch(error=>{
+        self.$message({
+	        type: 'error',
+	        message: '获取数据失败'
+        });
+      })
+    },
     newCategory(){
     },
     edit(){

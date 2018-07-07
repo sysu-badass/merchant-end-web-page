@@ -15,12 +15,12 @@
                     <el-select :disabled="notEditing" v-model="form.food_type" filterable placeholder="食品分类">
                       <el-option
                         v-for="item in this.$store.state.types.filter(type=>type!='全部')"
-                        :key="item.value"
-                        :label="item.label"
-                        :value="item.value">
+                        :key="item"
+                        :label="item"
+                        :value="item">
                       </el-option>
                     </el-select>
-                    <el-button type="text" @click="newCategory">新建分类</el-button>
+                    <el-button :disabled="notEditing" type="text" @click="newCategory">新建分类</el-button>
                 </el-form-item>
 
                 <el-form-item label="菜品图片">
@@ -43,8 +43,8 @@
                     </el-dialog>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" circle @click="edit(form)">{{buttonmsg}}</el-button>
-                    <el-button v-if="!notEditing" type="primary" circle @click="remvoe(form)">删除菜品</el-button>
+                    <el-button type="primary" circle @click="edit('form')">{{buttonmsg}}</el-button>
+                    <el-button v-if="!notEditing" type="primary" circle @click="removeFood(form)">删除菜品</el-button>
                 </el-form-item>
             </el-form>
 
@@ -55,8 +55,9 @@
 
 <script>
 import axios from '../../router/http'
-import { getFoodDetail, editFood} from '../../api/menu'
-import {getQiniuToken} from '../../api/info'
+import { getFoodDetail, editFood, deleteFood, getMenu} from '../../api/menu'
+import { getQiniuToken} from '../../api/info'
+import router from '../../router';
 
 export default{
   created: function(){
@@ -66,6 +67,9 @@ export default{
   watch: {
     '$route': function(to, from) {
       if(/^\/menu\/[0-9]*$/.test(to.path)){
+        this.form.images=[];
+        this.$data.notEditing = true;
+        this.$data.buttonmsg = "编辑";
         this.fetchData()
       }
     }
@@ -80,6 +84,7 @@ export default{
         images:[],
         image:"",
         monthlySales:0,
+        available: "True"
       },
       rules: {
         name: [
@@ -89,7 +94,7 @@ export default{
           { required: true, message: '请输入价格', trigger: 'blur' }
         ],
         description:[
-          {required:true, message:'请描述该菜品',trigger:'blur'}
+          {required:true, message:'请描述该菜品', trigger:'blur'}
         ]
       },
       added_images:[],
@@ -99,7 +104,7 @@ export default{
       buttonmsg:"编辑",
 
       postData:{
-        token: window.localStorage.getItem('imageToken')
+        token: "LeF0a6pcVG7oI4UWXujlr_AyAnlLgu-jSopW4pYB:dd_eSzP4T6b9oIkLr8snPf8FFnU=:eyJzY29wZSI6ImVvcmRlcmltZ3MiLCJkZWFkbGluZSI6MTUzNjEwMjkwNX0="
       }
     }
   },
@@ -121,51 +126,131 @@ export default{
         });
       })
     },
-    newCategory(){
-    },
-    edit(){
+    newCategory() {
       var self = this;
+      this.$prompt('请输入分类名称', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消'
+      }).
+      then(({ value }) => {
+        if(this.$store.state.types.indexOf(value) == -1){
+          self.form.food_type = value;
+          this.$message({
+            type: 'success',
+            message: '新建分类: ' + value
+          });
+        }else{
+          this.$message({
+            type: 'info',
+            message: '重复的分类！: ' + value
+          });
+        }
+      }).
+      catch(() => {
+        this.$message({
+          type: 'info',
+          message: '取消输入'
+        });       
+      });
+    },
+    edit(formName){
       this.$data.notEditing = !this.$data.notEditing;
+      var current_food_id = this.$route.params.food_id
       if(this.$data.buttonmsg=="编辑"){
         this.$data.buttonmsg='保存';
       }else if(this.$data.buttonmsg=="保存") {
-        var self = this;
-        this.$refs[form].validate((valid) => {
+        this.$refs[formName].validate((valid) => {
           if (valid) {
-            editFood(this.$data.form)
+            var self = this;
+            editFood(window.localStorage.getItem('restaurant_id'), this.$route.params.food_id,  this.$data.form)
             .then(response=>{
-              if(response.data.status==200){
+              if(response.status==200)
                 self.$message({
 	                type: 'success',
 	                message: '修改成功'
                 });
-              }
-              self.$data.buttonmsg="编辑";
+                var payload = {restaurant_id: window.localStorage.getItem('restaurant_id'),
+                                                    food_id: current_food_id ,
+                                                    data:  self.$data.form}
+
+                self.$store.dispatch("editFood",payload  );
             })
             .catch(err=>{
               self.$message({
 	              type: 'error',
 	              message: '修改失败，请过后再尝试'
-              });   
-              self.$data.buttonmsg="编辑";            
-            })
+              });            
+            })  
           }
+          this.$data.buttonmsg="编辑";   
         })
+        this.$router.push('/menu');
       }
     },
-    handleSuccess(res,file){
-      this.added_images.push({url:'http://pb1ftb8nx.bkt.clouddn.com/'+ res.key})
+    removeFood(){
+      var self = this;
+      deleteFood(window.localStorage.getItem('restaurant_id'), this.$route.params.food_id)
+      .then(response=>{
+        if(response.status == 200)
+          self.$message({
+	          type: 'success',
+	          message: '删除成功'
+          });
+          self.$store.dispatch("removeFood", {restaurant_id:window.localStorage.getItem('restaurant_id'), 
+                                              food_id: self.$route.params.food_id} )
+          self.$router.push('/menu');
+      })
+      .catch(error=>{
+        self.$message({
+	        type: 'error',
+	        message: '删除失败，请过后再尝试'
+        });            
+      })
     },
-    handleRemove(file, fileList) {
-      for(var i =0;i<this.added_images.length;i++){
-        if(this.added_images[i].url=="http://pb1ftb8nx.bkt.clouddn.com/"+file.response.key){
-          this.added_images.splice(i,1)
+    handlePictureCardPreview(){
+      this.dialogImageUrl = file.url;
+      this.dialogVisible = true;
+    },
+    handleRemove(file, fileList){
+      for(var i =0;i<this.form.images.length;i++){
+        // console.log(this.form.images[i].url)
+        if(this.form.images[i].url=="http://pb1ftb8nx.bkt.clouddn.com/"+file.response.key){
+          this.form.images.splice(i,1)
           break;
         }
       }
+      this.form.image=""
     },
-    handlePictureCardPreview(){
+    handleSuccess(res,file){
+      // console.log( 'http://pb1ftb8nx.bkt.clouddn.com/'+ res.key)
+      if(this.$data.form.images.length >= 1){
+        this.$message({
+	        type: 'error',
+	        message: '目前只允许上传一张图片'
+        });
+        this.form.images=[{url: 'http://pb1ftb8nx.bkt.clouddn.com/'+ res.key}]
+        this.$data.form.image = 'http://pb1ftb8nx.bkt.clouddn.com/'+ res.key;
+      }else{
+        this.$message({
+	        type: 'success',
+	        message: '图片更新成功'
+        });
+        this.form.images.push({url: 'http://pb1ftb8nx.bkt.clouddn.com/'+ res.key})
+        this.$data.form.image = 'http://pb1ftb8nx.bkt.clouddn.com/'+ res.key;
+      }
+
     },
+    // handleSuccess(res,file){
+    //   this.added_images.push({url:'http://pb1ftb8nx.bkt.clouddn.com/'+ res.key})
+    // },
+    // handleRemove(file, fileList) {
+    //   for(var i =0;i<this.added_images.length;i++){
+    //     if(this.added_images[i].url=="http://pb1ftb8nx.bkt.clouddn.com/"+file.response.key){
+    //       this.added_images.splice(i,1)
+    //       break;
+    //     }
+    //   }
+    // },
     removeImage(item,index){
       this.form.images.splice(index,1)
     }
@@ -174,49 +259,45 @@ export default{
 </script>
 
 <style scoped>
-.container{
+  .container{
     /* background-color:yellow; */
     height: 100%;
-}
-    .info-title{
-        margin-top: 20px;
-        text-align: center;
-    }
-    .info-main{
-        width: 60%;
-        /* background-color: #F9FAFC; */
-        min-height: 400px;
-        margin: 20px auto 0;
-        border-radius: 10px;
-    }
-
-    .image {
-        width: 145px;
-        height: 145px;
-        display: block;
-        float: left;
-        padding-right: 5px;
-        border-radius: 10px;
-    }
-    .profile-pic {
-	    position: relative;
-	    display: inline-block;
-    }
-
-    .profile-pic:hover .edit {
-    	display: block;
-    }
-
-    .edit {
-    	padding-top: 7px;	
-    	padding-right: 7px;
-    	position: absolute;
-    	right: 0;
-    	top: 0;
-    	display: none;
-    }
-
-    .edit a {
-    	color: #000;
-    }
+  }
+  .info-title{
+    margin-top: 20px;
+    text-align: center;
+  }
+  .info-main{
+    width: 60%;
+    /* background-color: #F9FAFC; */
+    min-height: 400px;
+    margin: 20px auto 0;
+    border-radius: 10px;
+  }
+  .image {
+    width: 145px;
+    height: 145px;
+    display: block;
+    float: left;
+    padding-right: 5px;
+    border-radius: 10px;
+  }
+  .profile-pic {
+	  position: relative;
+	  display: inline-block;
+  }
+  .profile-pic:hover .edit {
+  	display: block;
+  }
+  .edit {
+  	padding-top: 7px;	
+  	padding-right: 7px;
+  	position: absolute;
+  	right: 0;
+  	top: 0;
+  	display: none;
+  }
+  .edit a {
+  	color: #000;
+  }
 </style>

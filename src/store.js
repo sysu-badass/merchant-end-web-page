@@ -20,15 +20,36 @@ const store = new Vuex.Store({
     GET_MENU(state, menu){
       // console.log("mutation GET_MENU");
       // console.log(menu);
+      state.foods = [];
       for(var i = 0;i<menu.length;i++){
         state.foods.push(menu[i])
       }
     },
 
     ADD_FOOD(state,newfood){
-      state.foods.push(newfood)
+      for(var i =0;i< state.foods.length;i++){
+        if(state.foods[i].name == newfood.name){
+          state.foods.splice(i,1);
+          break;
+        }
+      }
+      state.foods.push(newfood);
       if(state.types.indexOf(newfood.food_type) == -1){
         state.types.push(newfood.food_type);
+      }
+    },
+
+    EDIT_FOOD(state, payload){
+      for(var i =0;i < state.foods.length;i++){
+        if(payload.food_id == state.foods[i].food_id){
+           console.log(payload.food_id , state.foods[i].id)
+           state.foods[i].name = payload.data.name;
+           state.foods[i].description = payload.data.description
+           state.foods[i].price = payload.data.price
+           state.foods[i].image = payload.data.image
+           state.foods[i].food_type = payload.data.food_type
+           state.foods[i].available  = payload.data.available
+        }
       }
     },
 
@@ -49,14 +70,18 @@ const store = new Vuex.Store({
       }
     },
     CLEAR(state){
-      // while(state.RestaurantInfo.length != 0 ) state.RestaurantInfo.splice(0,1);
-      // while(state.foods.length != 0 ) state.foods.splice(0,1);
-      // while(state.orders.length != 0 ) state.orders.splice(0,1);
-      // while(state.types.length != 0 ) state.types.splice(0,1);
       state.RestaurantInfo=[];
       state.foods =[];
       state.orders=[];
       state.types=['全部'];
+    },
+    REMOVE_FOOD(state,payload){
+      for(var i = 0; i < state.foods.length;i++){
+        if(state.foods[i].food_id == payload.food_id){
+          state.foods.splice(i,1);
+          break;
+        }
+      }
     }
 
 
@@ -71,6 +96,9 @@ const store = new Vuex.Store({
     addFood({commit},newfood){
       commit("ADD_FOOD",newfood);
     },
+    editFood({commit},payload){
+      commit("EDIT_FOOD",payload);
+    },
     initTypes({commit},menu){
       commit("INIT_TYPES",menu);
     },
@@ -79,6 +107,9 @@ const store = new Vuex.Store({
     },
     clearWhenExit({commit}){
       commit("CLEAR");
+    },
+    removeFood({commit},payload){
+      commit("REMOVE_FOOD",payload);
     }
   }
 });

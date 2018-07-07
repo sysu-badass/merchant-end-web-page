@@ -35,6 +35,22 @@ export default{
       console.log("获取菜品失败")
     })
   },
+  // watch: {
+  //   '$route': function(to, from) {
+  //     if(/^\/menu$/.test(to.path)){
+  //       // alert('match')
+  //       getMenu( window.localStorage.getItem('restaurant_id'))
+  //       .then(response=>{
+  //         // console.log(response.data.foods)
+  //         self.$store.dispatch("getMenu",response.data.foods);
+  //         self.$store.dispatch("initTypes",response.data.foods);
+  //       })
+  //       .catch(error=>{
+  //         console.log("获取菜品失败")
+  //       })        
+  //     }
+  //   }
+  // },
   components:{
     foodcard
   },

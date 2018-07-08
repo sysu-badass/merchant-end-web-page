@@ -114,7 +114,11 @@ export default{
         this.form.description = response.data.foods[0].description;
         this.form.price = response.data.foods[0].price;
         this.form.food_type = response.data.foods[0].food_type;
-        this.form.images[0] = {url:response.data.foods[0].image};
+        if(response.data.foods[0].image==""){
+          this.form.images=[];
+        }else{
+          this.form.images[0] = {url:response.data.foods[0].image};
+        }
         this.form.image = response.data.foods[0].image;
       }).catch(error=>{
         self.$message({
@@ -212,10 +216,13 @@ export default{
       for(var i =0;i<this.form.images.length;i++){
         if(this.form.images[i].url=="http://pb1ftb8nx.bkt.clouddn.com/"+file.response.key){
           this.form.images.splice(i,1)
+          console.log("remove " + "http://pb1ftb8nx.bkt.clouddn.com/"+file.response.key)
           break;
         }
       }
-      this.form.image=""
+      // this.form.image=""
+      console.log(this.$data.form.images)
+      console.log(this.$data.form.image)
     },
     handleSuccess(res,file){
       if(this.$data.form.images.length >= 1){
@@ -223,7 +230,7 @@ export default{
 	        type: 'error',
 	        message: '目前只允许上传一张图片，将保留最后一张上传的图片'
         });
-        this.form.images=[{url: 'http://pb1ftb8nx.bkt.clouddn.com/'+ res.key}]
+        this.form.images[0]={url: 'http://pb1ftb8nx.bkt.clouddn.com/'+ res.key}
         this.$data.form.image = 'http://pb1ftb8nx.bkt.clouddn.com/'+ res.key;
       }else{
         this.$message({
@@ -233,6 +240,8 @@ export default{
         this.form.images.push({url: 'http://pb1ftb8nx.bkt.clouddn.com/'+ res.key})
         this.$data.form.image = 'http://pb1ftb8nx.bkt.clouddn.com/'+ res.key;
       }
+      console.log(this.$data.form.images)
+      console.log(this.$data.form.image)
     },
     handleBeforeUpload(file){
       if(this.$data.form.images >= 1){
@@ -245,7 +254,8 @@ export default{
       }
     },
     removeImage(item,index){
-      this.form.images.splice(index,1)
+      this.form.images=[]
+      this.form.image=""
     }
   }
 }

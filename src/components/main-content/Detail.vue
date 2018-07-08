@@ -52,7 +52,6 @@
 </template>
 
 <script>
-import axios from '../../router/http'
 import { getFoodDetail, editFood, deleteFood, getMenu} from '../../api/menu'
 import { getQiniuToken} from '../../api/info'
 import router from '../../router';

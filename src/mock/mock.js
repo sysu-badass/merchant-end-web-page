@@ -54,343 +54,387 @@ const newPic = function (){
 // };
 
 const get_orders = function(){
-  return[{
-    id:"1",
-    status:"new",
-    total_amount: 1,
-    user_name:"aa"	,
-    tableID:1,
-    time:"2018-06-01",
-    content:[{
-      meal:"meal1 X 1"
-    },{
-      meal:"meal2 X 2"
-    }]
-  },{
-    id:"2",
-    status:"processing",
-    total_amount: 2,
-    user_name:"bb"	,
-    tableID:2,
-    time:"2018-06-02",
-    content:[{
-      meal:"meal1 X 3"
-    },{
-      meal:"meal2 X 4"
-    }]
-  },{
-    id:"3",
-    status:"finished",
-    total_amount: 3,
-    user_name:"cc"	,
-    tableID:3,
-    time:"2018-06-03",
-    content:[{
-      meal:"meal1 X 5"
-    },{
-      meal:"meal2 X 6"
-    }]
-  },{
-    id:"4",
-    status:"rejected",
-    total_amount: 4,
-    user_name:"dd"	,
-    tableID:4,
-    time:"2018-06-04",
-    content:[{
-      meal:"meal1 X 7"
-    },{
-      meal:"meal2 X 8"
-    }]
-  },{
-    id:"5",
-    status:"new",
-    total_amount: 1,
-    user_name:"aa"	,
-    tableID:1,
-    time:"2018-06-01",
-    content:[{
-      meal:"meal1 X 1"
-    },{
-      meal:"meal2 X 2"
-    }]
-  },{
-    id:"6",
-    status:"processing",
-    total_amount: 2,
-    user_name:"bb"	,
-    tableID:2,
-    time:"2018-06-02",
-    content:[{
-      meal:"meal1 X 3"
-    },{
-      meal:"meal2 X 4"
-    }]
-  },{
-    id:"7",
-    status:"finished",
-    total_amount: 3,
-    user_name:"cc"	,
-    tableID:3,
-    time:"2018-06-03",
-    content:[{
-      meal:"meal1 X 5"
-    },{
-      meal:"meal2 X 6"
-    }]
-  },{
-    id:"8",
-    status:"rejected",
-    total_amount: 4,
-    user_name:"dd"	,
-    tableID:4,
-    time:"2018-06-04",
-    content:[{
-      meal:"meal1 X 7"
-    },{
-      meal:"meal2 X 8"
-    }]
-  },{
-    id:"9",
-    status:"new",
-    total_amount: 1,
-    user_name:"aa"	,
-    tableID:1,
-    time:"2018-06-01",
-    content:[{
-      meal:"meal1 X 1"
-    },{
-      meal:"meal2 X 2"
-    }]
-  },{
-    id:"10",
-    status:"processing",
-    total_amount: 2,
-    user_name:"bb"	,
-    tableID:2,
-    time:"2018-06-02",
-    content:[{
-      meal:"meal1 X 3"
-    },{
-      meal:"meal2 X 4"
-    }]
-  },{
-    id:"11",
-    status:"finished",
-    total_amount: 3,
-    user_name:"cc"	,
-    tableID:3,
-    time:"2018-06-03",
-    content:[{
-      meal:"meal1 X 5"
-    },{
-      meal:"meal2 X 6"
-    }]
-  },{
-    id:"12",
-    status:"rejected",
-    total_amount: 4,
-    user_name:"dd"	,
-    tableID:4,
-    time:"2018-06-04",
-    content:[{
-      meal:"meal1 X 7"
-    },{
-      meal:"meal2 X 8"
-    }]
-  },{
-    id:"13",
-    status:"new",
-    total_amount: 1,
-    user_name:"aa"	,
-    tableID:1,
-    time:"2018-06-01",
-    content:[{
-      meal:"meal1 X 1"
-    },{
-      meal:"meal2 X 2"
-    }]
-  },{
-    id:"14",
-    status:"processing",
-    total_amount: 2,
-    user_name:"bb"	,
-    tableID:2,
-    time:"2018-06-02",
-    content:[{
-      meal:"meal1 X 3"
-    },{
-      meal:"meal2 X 4"
-    }]
-  },{
-    id:"15",
-    status:"finished",
-    total_amount: 3,
-    user_name:"cc"	,
-    tableID:3,
-    time:"2018-06-03",
-    content:[{
-      meal:"meal1 X 5"
-    },{
-      meal:"meal2 X 6"
-    }]
-  },{
-    id:"16",
-    status:"rejected",
-    total_amount: 4,
-    user_name:"dd"	,
-    tableID:4,
-    time:"2018-06-04",
-    content:[{
-      meal:"meal1 X 7"
-    },{
-      meal:"meal2 X 8"
-    }]
-  },{
-    id:"17",
-    status:"new",
-    total_amount: 1,
-    user_name:"aa"	,
-    tableID:1,
-    time:"2018-06-01",
-    content:[{
-      meal:"meal1 X 1"
-    },{
-      meal:"meal2 X 2"
-    }]
-  },{
-    id:"18",
-    status:"processing",
-    total_amount: 2,
-    user_name:"bb"	,
-    tableID:2,
-    time:"2018-06-02",
-    content:[{
-      meal:"meal1 X 3"
-    },{
-      meal:"meal2 X 4"
-    }]
-  },{
-    id:"19",
-    status:"finished",
-    total_amount: 3,
-    user_name:"cc"	,
-    tableID:3,
-    time:"2018-06-03",
-    content:[{
-      meal:"meal1 X 5"
-    },{
-      meal:"meal2 X 6"
-    }]
-  },{
-    id:"20",
-    status:"rejected",
-    total_amount: 4,
-    user_name:"dd"	,
-    tableID:4,
-    time:"2018-06-04",
-    content:[{
-      meal:"meal1 X 7"
-    },{
-      meal:"meal2 X 8"
-    }]
-  },{
-    id:"21",
-    status:"new",
-    total_amount: 1,
-    user_name:"aa"	,
-    tableID:1,
-    time:"2018-06-01",
-    content:[{
-      meal:"meal1 X 1"
-    },{
-      meal:"meal2 X 2"
-    }]
-  },{
-    id:"22",
-    status:"processing",
-    total_amount: 2,
-    user_name:"bb"	,
-    tableID:2,
-    time:"2018-06-02",
-    content:[{
-      meal:"meal1 X 3"
-    },{
-      meal:"meal2 X 4"
-    }]
-  },{
-    id:"23",
-    status:"finished",
-    total_amount: 3,
-    user_name:"cc"	,
-    tableID:3,
-    time:"2018-06-03",
-    content:[{
-      meal:"meal1 X 5"
-    },{
-      meal:"meal2 X 6"
-    }]
-  },{
-    id:"24",
-    status:"rejected",
-    total_amount: 4,
-    user_name:"dd"	,
-    tableID:4,
-    time:"2018-06-04",
-    content:[{
-      meal:"meal1 X 7"
-    },{
-      meal:"meal2 X 8"
-    }]
-  },{
-    id:"25",
-    status:"new",
-    total_amount: 1,
-    user_name:"aa"	,
-    tableID:1,
-    time:"2018-06-01",
-    content:[{
-      meal:"meal1 X 1"
-    },{
-      meal:"meal2 X 2"
-    }]
-  },{
-    id:"26",
-    status:"processing",
-    total_amount: 2,
-    user_name:"bb"	,
-    tableID:2,
-    time:"2018-06-02",
-    content:[{
-      meal:"meal1 X 3"
-    },{
-      meal:"meal2 X 4"
-    }]
-  },{
-    id:"27",
-    status:"finished",
-    total_amount: 3,
-    user_name:"cc"	,
-    tableID:3,
-    time:"2018-06-03",
-    content:[{
-      meal:"meal1 X 5"
-    },{
-      meal:"meal2 X 6"
-    }]
-  },{
-    id:"28",
-    status:"rejected",
-    total_amount: 4,
-    user_name:"dd"	,
-    tableID:4,
-    time:"2018-06-04",
-    content:[{
-      meal:"meal1 X 7"
-    },{
-      meal:"meal2 X 8"
-    }]
-  }];
+  return { orders: [
+    {
+      'order_id': 1,
+      'date': '2018.6.18',
+      'desk_number': 2,
+      'total_price': 123.4,
+      'status': 'new',
+      'restaurant_id': 9527
+    },
+    {
+      'order_id': 2,
+      'date': '2018.6.18',
+      'desk_number': 2,
+      'total_price': 123.4,
+      'status': 'new',
+      'restaurant_id': 9527
+    },
+    {
+      'order_id': 3,
+      'date': '2018.6.18',
+      'desk_number': 2,
+      'total_price': 123.4,
+      'status': 'new',
+      'restaurant_id': 9527
+    },
+    {
+      'order_id': 4,
+      'date': '2018.6.18',
+      'desk_number': 2,
+      'total_price': 123.4,
+      'status': 'new',
+      'restaurant_id': 9527
+    },
+    {
+      'order_id': 5,
+      'date': '2018.6.18',
+      'desk_number': 2,
+      'total_price': 123.4,
+      'status': 'new',
+      'restaurant_id': 9527
+    }
+  ]
+}
+
+//   return[{
+//     id:"1",
+//     status:"new",
+//     total_amount: 1,
+//     user_name:"aa"	,
+//     tableID:1,
+//     time:"2018-06-01",
+//     content:[{
+//       meal:"meal1 X 1"
+//     },{
+//       meal:"meal2 X 2"
+//     }]
+//   },{
+//     id:"2",
+//     status:"processing",
+//     total_amount: 2,
+//     user_name:"bb"	,
+//     tableID:2,
+//     time:"2018-06-02",
+//     content:[{
+//       meal:"meal1 X 3"
+//     },{
+//       meal:"meal2 X 4"
+//     }]
+//   },{
+//     id:"3",
+//     status:"finished",
+//     total_amount: 3,
+//     user_name:"cc"	,
+//     tableID:3,
+//     time:"2018-06-03",
+//     content:[{
+//       meal:"meal1 X 5"
+//     },{
+//       meal:"meal2 X 6"
+//     }]
+//   },{
+//     id:"4",
+//     status:"rejected",
+//     total_amount: 4,
+//     user_name:"dd"	,
+//     tableID:4,
+//     time:"2018-06-04",
+//     content:[{
+//       meal:"meal1 X 7"
+//     },{
+//       meal:"meal2 X 8"
+//     }]
+//   },{
+//     id:"5",
+//     status:"new",
+//     total_amount: 1,
+//     user_name:"aa"	,
+//     tableID:1,
+//     time:"2018-06-01",
+//     content:[{
+//       meal:"meal1 X 1"
+//     },{
+//       meal:"meal2 X 2"
+//     }]
+//   },{
+//     id:"6",
+//     status:"processing",
+//     total_amount: 2,
+//     user_name:"bb"	,
+//     tableID:2,
+//     time:"2018-06-02",
+//     content:[{
+//       meal:"meal1 X 3"
+//     },{
+//       meal:"meal2 X 4"
+//     }]
+//   },{
+//     id:"7",
+//     status:"finished",
+//     total_amount: 3,
+//     user_name:"cc"	,
+//     tableID:3,
+//     time:"2018-06-03",
+//     content:[{
+//       meal:"meal1 X 5"
+//     },{
+//       meal:"meal2 X 6"
+//     }]
+//   },{
+//     id:"8",
+//     status:"rejected",
+//     total_amount: 4,
+//     user_name:"dd"	,
+//     tableID:4,
+//     time:"2018-06-04",
+//     content:[{
+//       meal:"meal1 X 7"
+//     },{
+//       meal:"meal2 X 8"
+//     }]
+//   },{
+//     id:"9",
+//     status:"new",
+//     total_amount: 1,
+//     user_name:"aa"	,
+//     tableID:1,
+//     time:"2018-06-01",
+//     content:[{
+//       meal:"meal1 X 1"
+//     },{
+//       meal:"meal2 X 2"
+//     }]
+//   },{
+//     id:"10",
+//     status:"processing",
+//     total_amount: 2,
+//     user_name:"bb"	,
+//     tableID:2,
+//     time:"2018-06-02",
+//     content:[{
+//       meal:"meal1 X 3"
+//     },{
+//       meal:"meal2 X 4"
+//     }]
+//   },{
+//     id:"11",
+//     status:"finished",
+//     total_amount: 3,
+//     user_name:"cc"	,
+//     tableID:3,
+//     time:"2018-06-03",
+//     content:[{
+//       meal:"meal1 X 5"
+//     },{
+//       meal:"meal2 X 6"
+//     }]
+//   },{
+//     id:"12",
+//     status:"rejected",
+//     total_amount: 4,
+//     user_name:"dd"	,
+//     tableID:4,
+//     time:"2018-06-04",
+//     content:[{
+//       meal:"meal1 X 7"
+//     },{
+//       meal:"meal2 X 8"
+//     }]
+//   },{
+//     id:"13",
+//     status:"new",
+//     total_amount: 1,
+//     user_name:"aa"	,
+//     tableID:1,
+//     time:"2018-06-01",
+//     content:[{
+//       meal:"meal1 X 1"
+//     },{
+//       meal:"meal2 X 2"
+//     }]
+//   },{
+//     id:"14",
+//     status:"processing",
+//     total_amount: 2,
+//     user_name:"bb"	,
+//     tableID:2,
+//     time:"2018-06-02",
+//     content:[{
+//       meal:"meal1 X 3"
+//     },{
+//       meal:"meal2 X 4"
+//     }]
+//   },{
+//     id:"15",
+//     status:"finished",
+//     total_amount: 3,
+//     user_name:"cc"	,
+//     tableID:3,
+//     time:"2018-06-03",
+//     content:[{
+//       meal:"meal1 X 5"
+//     },{
+//       meal:"meal2 X 6"
+//     }]
+//   },{
+//     id:"16",
+//     status:"rejected",
+//     total_amount: 4,
+//     user_name:"dd"	,
+//     tableID:4,
+//     time:"2018-06-04",
+//     content:[{
+//       meal:"meal1 X 7"
+//     },{
+//       meal:"meal2 X 8"
+//     }]
+//   },{
+//     id:"17",
+//     status:"new",
+//     total_amount: 1,
+//     user_name:"aa"	,
+//     tableID:1,
+//     time:"2018-06-01",
+//     content:[{
+//       meal:"meal1 X 1"
+//     },{
+//       meal:"meal2 X 2"
+//     }]
+//   },{
+//     id:"18",
+//     status:"processing",
+//     total_amount: 2,
+//     user_name:"bb"	,
+//     tableID:2,
+//     time:"2018-06-02",
+//     content:[{
+//       meal:"meal1 X 3"
+//     },{
+//       meal:"meal2 X 4"
+//     }]
+//   },{
+//     id:"19",
+//     status:"finished",
+//     total_amount: 3,
+//     user_name:"cc"	,
+//     tableID:3,
+//     time:"2018-06-03",
+//     content:[{
+//       meal:"meal1 X 5"
+//     },{
+//       meal:"meal2 X 6"
+//     }]
+//   },{
+//     id:"20",
+//     status:"rejected",
+//     total_amount: 4,
+//     user_name:"dd"	,
+//     tableID:4,
+//     time:"2018-06-04",
+//     content:[{
+//       meal:"meal1 X 7"
+//     },{
+//       meal:"meal2 X 8"
+//     }]
+//   },{
+//     id:"21",
+//     status:"new",
+//     total_amount: 1,
+//     user_name:"aa"	,
+//     tableID:1,
+//     time:"2018-06-01",
+//     content:[{
+//       meal:"meal1 X 1"
+//     },{
+//       meal:"meal2 X 2"
+//     }]
+//   },{
+//     id:"22",
+//     status:"processing",
+//     total_amount: 2,
+//     user_name:"bb"	,
+//     tableID:2,
+//     time:"2018-06-02",
+//     content:[{
+//       meal:"meal1 X 3"
+//     },{
+//       meal:"meal2 X 4"
+//     }]
+//   },{
+//     id:"23",
+//     status:"finished",
+//     total_amount: 3,
+//     user_name:"cc"	,
+//     tableID:3,
+//     time:"2018-06-03",
+//     content:[{
+//       meal:"meal1 X 5"
+//     },{
+//       meal:"meal2 X 6"
+//     }]
+//   },{
+//     id:"24",
+//     status:"rejected",
+//     total_amount: 4,
+//     user_name:"dd"	,
+//     tableID:4,
+//     time:"2018-06-04",
+//     content:[{
+//       meal:"meal1 X 7"
+//     },{
+//       meal:"meal2 X 8"
+//     }]
+//   },{
+//     id:"25",
+//     status:"new",
+//     total_amount: 1,
+//     user_name:"aa"	,
+//     tableID:1,
+//     time:"2018-06-01",
+//     content:[{
+//       meal:"meal1 X 1"
+//     },{
+//       meal:"meal2 X 2"
+//     }]
+//   },{
+//     id:"26",
+//     status:"processing",
+//     total_amount: 2,
+//     user_name:"bb"	,
+//     tableID:2,
+//     time:"2018-06-02",
+//     content:[{
+//       meal:"meal1 X 3"
+//     },{
+//       meal:"meal2 X 4"
+//     }]
+//   },{
+//     id:"27",
+//     status:"finished",
+//     total_amount: 3,
+//     user_name:"cc"	,
+//     tableID:3,
+//     time:"2018-06-03",
+//     content:[{
+//       meal:"meal1 X 5"
+//     },{
+//       meal:"meal2 X 6"
+//     }]
+//   },{
+//     id:"28",
+//     status:"rejected",
+//     total_amount: 4,
+//     user_name:"dd"	,
+//     tableID:4,
+//     time:"2018-06-04",
+//     content:[{
+//       meal:"meal1 X 7"
+//     },{
+//       meal:"meal2 X 8"
+//     }]
+//   }];
 };
 
 const menu = function(){

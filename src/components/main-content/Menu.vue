@@ -19,7 +19,6 @@
 
 <script>
 import foodcard from '@/components/common/FoodCard'
-import axios from '../../router/http'
 import {getMenu} from '../../api/menu'
 
 export default{

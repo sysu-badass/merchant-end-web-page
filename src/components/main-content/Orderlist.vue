@@ -8,7 +8,7 @@
     		<el-tab-pane label="已拒绝" name="rejected">已拒绝订单</el-tab-pane>
   	  </el-tabs>
  
-      <el-table :data="current_page_data" :row-key="row => row.index" style="width: 100%">
+      <el-table @row-dblclick="clickOrder" :data="current_page_data" :row-key="row => row.index" style="width: 100%">
 			  <el-table-column type="expand">
 			    <template slot-scope="props">
 			      <el-form label-position="left" inline class="demo-table-expand">
@@ -30,13 +30,19 @@
 
 			  <el-table-column
 			    label="订单 ID"
-			    prop="id">
+			    prop="order_id">
 			  </el-table-column>
 
 			  <el-table-column
 			    label="总价格"
-			    prop="total_amount">
+			    prop="total_price">
 			  </el-table-column>
+
+			  <el-table-column
+			    label="桌号"
+			    prop="desk_number">
+			  </el-table-column>
+
 			  <el-table-column
 			    label="操作"
 			    prop="status">
@@ -52,18 +58,18 @@
 						<el-button  v-if="activeName=='processing'"
       		    size="mini"
       		    @click="handleFinish(scope.$index, scope.row)">完成</el-button>
-      		  <el-button v-if="activeName=='processing'"
+      		  <!-- <el-button v-if="activeName=='processing'"
       		    size="mini"
       		    type="danger"
-      		    @click="handleCancel(scope.$index, scope.row)">取消</el-button>
+      		    @click="handleCancel(scope.$index, scope.row)">取消</el-button> -->
       		  <el-button v-if="activeName=='finished'"
       		    size="mini"
       		    type="danger"
-      		    @click="deleteOrder(scope.$index, scope.row)">删除</el-button>
+      		    @click="handleDelete(scope.$index, scope.row)">删除</el-button>
       		  <el-button v-if="activeName=='rejected'"
       		    size="mini"
       		    type="danger"
-      		    @click="deleteOrder(scope.$index, scope.row)">删除</el-button>
+      		    @click="handleDelete(scope.$index, scope.row)">删除</el-button>
       		</template>
 			  </el-table-column>
 			</el-table>
@@ -81,32 +87,35 @@
 </template>
 
 <script>
-import axios from '../../router/http'
-import {getOrders} from "../../api/orders"
+import {getOrders, handleOrder, getOrderDetail} from "../../api/orders"
 
 export default{
   created: function(){
     var self = this;
     getOrders(window.localStorage.getItem('restaurant_id'))
       .then(response =>{
-          if(response.status == 200){
-            self.$store.dispatch("getOrders",response.data);
-			      this.tableData = response.data
-			      for(var i = 0;i < this.tableData.length;i++){
-			      	if(this.tableData[i].status == 'new'){
-			      		this.showData.push(this.tableData[i])
-			      	}
-			      }
-		  	    for(var i =0; i<this.showData.length && i<this.page_size; i++){
-		  	    	this.current_page_data.push(this.showData[i])
-            }
-		  	    this.count = this.showData.length
+        if(response.status == 200){
+          self.$store.dispatch("getOrders",response.data.orders);
+			    this.tableData = response.data.orders
+			    for(var i = 0;i < this.tableData.length;i++){
+			    	if(this.tableData[i].status == 'new'){
+			    		this.showData.push(this.tableData[i])
+			    	}
+			    }
+		  	  for(var i =0; i<this.showData.length && i<this.page_size; i++){
+		  	  	this.current_page_data.push(this.showData[i])
+          }
+		  	  this.count = this.showData.length
         }
       })
       .catch()
 	},
 	methods:{
-		handleAccept(a,b){
+    clickOrder(row, event, column){
+      // console.log(row,event,column)
+      this.$router.push('/orderlist/'+ row.order_id);
+    },
+		showWhenAccept(a,b){
 			// console.log(a,b)
 			for(var i = 0;i<this.tableData.length;i++){
 				if(this.tableData[i].id==b.id){
@@ -126,8 +135,7 @@ export default{
 			}
 			this.count = this.showData.length
 		},
-
-		handleReject(a,b){
+		showWhenReject(a,b){
 			for(var i = 0;i<this.tableData.length;i++){
 				if(this.tableData[i].id==b.id){
 					this.tableData[i].status = 'rejected'
@@ -146,7 +154,7 @@ export default{
 			}
 			this.count = this.showData.length
 		},
-	  handleFinish(a,b){
+	  shwoWhenFinish(a,b){
 			for(var i = 0;i<this.tableData.length;i++){
 				if(this.tableData[i].id==b.id){
 					this.tableData[i].status = 'finished';
@@ -165,7 +173,7 @@ export default{
 			}
 			this.count = this.showData.length
 		},
-		handleCancel(a,b){
+		showWhenCancel(a,b){
 			for(var i = 0;i<this.tableData.length;i++){
 				if(this.tableData[i].id==b.id){
 					this.tableData[i].status = 'rejected'
@@ -184,7 +192,7 @@ export default{
 			}
 			this.count = this.showData.length
 		},
-		deleteOrder(a,b){
+		shwoWhenDelete(a,b){
 			for(var i = 0;i<this.tableData.length;i++){
 				if(this.tableData[i].id==b.id){
 					this.tableData.splice(i,1)
@@ -200,7 +208,70 @@ export default{
 				this.current_page_data.push(this.showData[i])
 			}
 			this.count = this.showData.length
-		},
+    },
+
+    handleAccept(a,b){
+      var self = this;
+      var payload = {
+        order_id: b.order_id,
+        status: 'processing'
+      }
+      handleOrder(window.localStorage.getItem('restaurant_id'), payload)
+      .then(response => {
+        if(response.status == 200){
+          self.$store.dispatch('handleOrder', payload)
+          this.showWhenAccept(a,b);
+        }
+      })
+      .catch(error => {
+        self.$message({
+          type:'error',
+          message:'出现异常'
+        })
+      })
+    },
+
+    handleReject(a,b){
+      var self = this;
+      var payload = {
+        order_id: b.order_id,
+        status: 'rejected'
+      }
+      handleOrder(window.localStorage.getItem('restaurant_id'),payload )
+      .then(response => {
+        if(response.status == 200){
+          self.$store.dispatch('handleOrder', payload)
+          this.showWhenReject(a,b);
+        }
+      })
+      .catch(error => {
+        self.$message({
+          type:'error',
+          message:'出现异常'
+        })
+      })
+    },
+
+    handleFinish(a,b){
+      var self = this;
+      var payload = {
+        order_id: b.order_id,
+        status: 'finished'
+      }
+      handleOrder(window.localStorage.getItem('restaurant_id'),payload )
+      .then(response => {
+        if(response.status == 200){
+          self.$store.dispatch('handleOrder', payload)
+          this.showWhenAccept(a,b);
+        }
+      })
+      .catch(error => {
+        self.$message({
+          type:'error',
+          message:'出现异常'
+        })
+      })
+    },
 		switchTab(a,b){
 			// console.log(this.activeName)
 			this.current_page =1;
@@ -227,7 +298,7 @@ export default{
 			for(var i =(this.current_page-1)*this.page_size;i<this.current_page*this.page_size && i<this.showData.length ;i++){
 				this.current_page_data.push(this.showData[i])
 			}
-		}
+    }
 	},
 	data(){
 		return{

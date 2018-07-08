@@ -20,7 +20,6 @@
 </template>
 
 <script>
-  import axios from '../../router/http';
   import { login } from '../../api/login';
 
   export default {

@@ -47,7 +47,6 @@
 </template>
 
 <script>
-import axios from '../../router/http'
 import {getQiniuToken} from '../../api/info'
 import {addFood} from '../../api/menu'
 

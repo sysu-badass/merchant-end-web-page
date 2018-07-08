@@ -8,9 +8,9 @@ import QRCode from "@/components/main-content/QRCode";
 import Explain from "@/components/main-content/Explain";
 import Orderlist from "@/components/main-content/Orderlist";
 import addfood from "@/components/main-content/Addfood";
-// const addfood = r => require.ensure([], () => r(require('@/components/main-content/Addfood')), 'addfood');
 import Detail from "@/components/main-content/Detail";
 import layout from "@/components/common/Layout";
+import Orderdetail from '@/components/main-content/OrderDetail'
 
 Vue.use(Router);
 
@@ -50,6 +50,12 @@ const routes = [{
       requiresAuth: true
     }
   },{
+    path:"/orderlist/:order_id",
+    component: Orderdetail,
+    meta:{
+      requiresAuth: true
+    }   
+  },{
     path:"/menu",
     component: Menu,
     meta:{
@@ -69,15 +75,6 @@ const routes = [{
     }
   },{
     path:"/addfood",
-    beforeRouteUpdate (to, from, next) {
-      to.$forceUpdate()
-    },
-    beforeRouteLeave (to, from, next) {
-      aler("?")
-      console.log(this)    //可以访问vue实例
-      console.log('组件路由勾子：beforeRouteLeave')
-      next()
-    },
     component: addfood,
     meta:{
       requiresAuth: true
@@ -88,14 +85,6 @@ const routes = [{
     meta:{
       requiresAuth: true
     }
-    // beforeRouteEnter (to, from, next) {
-    //   console.log(this);  //undefined，不能用this来获取vue实例
-    //   console.log('组件路由钩子：beforeRouteEnter');
-    //   next(vm => {
-    //     console.log(vm);  //vm为vue的实例
-    //     console.log('组件路由钩子beforeRouteEnter的next');
-    //   });
-    // }
   }        
   ]
 }
@@ -112,7 +101,6 @@ router.beforeEach((to, from, next) => {
     if(!token || token === undefined){
       next({
         path: "/login",
-        // query: { redirect: to.fullPath }
       });
     }else{
       next();

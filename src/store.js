@@ -81,10 +81,18 @@ const store = new Vuex.Store({
           break;
         }
       }
+    },
+    HANDLE_ORDER(state,payload){
+      for(var i =0;i< state.orders.length;i++){
+        if(state.orders[i].order_id == payload.order_id){
+          state.orders[i].status =  payload.status
+        }
+      }
     }
 
-
   },
+
+
   actions:{
     getInfo({commit},info){
       commit("GET_INFO",info);
@@ -109,6 +117,11 @@ const store = new Vuex.Store({
     },
     removeFood({commit},payload){
       commit("REMOVE_FOOD",payload);
+    },
+
+    //order part 
+    handleOrder({commit},payload){
+      commit("HANDLE_ORDER",payload)
     }
   }
 });

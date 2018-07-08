@@ -53,7 +53,6 @@
 
 
 <script>
-import axios from '../../router/http'
 import {getInfo, updateInfo, getQiniuToken } from '../../api/info'
 
 export default {

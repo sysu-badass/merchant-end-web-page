@@ -35,10 +35,8 @@
     computed:{
       imageurl:function(){
         if(this.$props.info.image != ""){
-          // console.log(this.$props.info.image)
           return this.$props.info.image
         }else{
-          // console.log("temp image")
           return "http://pb1ftb8nx.bkt.clouddn.com/wutu.jpg"
         }
       }

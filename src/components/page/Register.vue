@@ -6,9 +6,6 @@
         <div v-if="errorInfo">
             <span>{{errInfo}}</span>
         </div>
-        <!-- <el-form-item prop="username">
-            <el-input v-model="ruleForm.username" placeholder="账号" ></el-input>
-        </el-form-item> -->
         <el-form-item prop="phone">
             <el-input placeholder="手机" v-model="ruleForm.phone" @keyup.enter.native="submitForm('ruleForm')"></el-input>
         </el-form-item>
@@ -36,7 +33,9 @@ export default {
     var validatePass = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请输入密码'));
-      } else {
+      } else if(!/^(\w){6,20}$/.test(value)){
+        callback(new Error('只能输入6-20个字母、数字、下划线'))
+      }else{
         if (this.ruleForm.checkPassword !== '') {
         this.$refs.ruleForm.validateField('checkPassword');
       }
@@ -55,7 +54,10 @@ export default {
     var validatePhone = (rule, value, callback) => {
       if(value === ''){
         callback(new Error('请输入手机号'));
-      }else{
+      }else if(!/^1[3|4|5|7|8][0-9]{9}$/.test(value)){
+        callback(new Error('手机号格式不正确'))
+      }else
+        {
         callback();
       }
     };

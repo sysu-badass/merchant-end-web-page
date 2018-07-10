@@ -56,23 +56,18 @@ export default {
         callback(new Error('请输入手机号'));
       }else if(!/^1[3|4|5|7|8][0-9]{9}$/.test(value)){
         callback(new Error('手机号格式不正确'))
-      }else
-        {
+      }else{
         callback();
       }
     };
     return {
       errorInfo:false,
       ruleForm: {
-        username:'',
         password: '',
         checkPassword: '',
         phone:''
       },
       rules: {
-        username: [
-          { required: true, message:"请输入用户名", trigger: 'blur' }
-        ],
         password: [
           { validator: validatePass, trigger: 'blur' }
         ],

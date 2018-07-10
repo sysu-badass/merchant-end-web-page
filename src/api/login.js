@@ -18,10 +18,11 @@ export function register(formdata){
   const data = {
     restaurant_id: Number(formdata['phone']),
     restaurant_admin_id: formdata['phone'],
-    restaurant_admin_password: Number(formdata["password"]),
+    restaurant_admin_password: formdata["password"],
     restaurant_name: " ",
     restaurant_information: " "
   }
+  console.log(data.restaurant_admin_password)
   return axios({
     method: 'post',
     url: '/api/restaurants/join',
